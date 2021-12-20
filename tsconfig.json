@@ -5,7 +5,9 @@
     "strict": true,
     "jsx": "react",
     "paths": {
-      
+      "@components": ["./src/components"],
+      "@types": ["./src/shared/types"],
+      "@store": ["./src/store"]
     }
   }
 }
