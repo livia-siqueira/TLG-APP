@@ -3,7 +3,7 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "strict": true,
-    "jsx": "react",
+    "jsx": "react-native",
     "paths": {
       "@components": ["./src/components"],
       "@types": ["./src/shared/types"],
