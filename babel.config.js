@@ -12,7 +12,9 @@ module.exports = function(api) {
             "@store": "./src/store"
           }
         }
-      ]
-    ]
+      ],
+      "react-native-reanimated/plugin",
+    ],
+   
   };
 };

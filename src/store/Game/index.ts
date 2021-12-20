@@ -3,7 +3,7 @@ import { Game, GamesRules } from "../../shared/types";
 import { gamesLoads } from "./thunk";
 
 type initial = {
-    games: GamesRules[],
+    games: Game[],
     gameActual: Game | null
 }
 
@@ -17,6 +17,13 @@ const controlGame = createSlice({
     name: 'games',
     initialState: initialState,
     reducers: {
+        changeGameSelected: (state, action : PayloadAction<string> ) => {
+            const gameSelect = state.games.find((item) => 
+               item.type === action.payload
+            )
+            state.gameActual = gameSelect ? gameSelect : null;
+            return state;
+        }
     }, 
     extraReducers: (builder) => {
         builder.addCase(gamesLoads.fulfilled, (state, action) =>{
@@ -29,4 +36,5 @@ const controlGame = createSlice({
     }
 })
 
-export default controlGame.reducer
+export default controlGame.reducer;
+export const {changeGameSelected} = controlGame.actions;

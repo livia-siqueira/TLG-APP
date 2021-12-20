@@ -31,10 +31,10 @@ interface iHomeProps {
 }
 
 export const AuthScreen = ({ navigation }: iHomeProps) => {
+  const dispacth: AppDispatch = useDispatch();
   const getGames = useCallback(async () => {
     try {
-      const a = await dispacth(gamesLoads());
-      console.log(a);
+      await dispacth(gamesLoads());
     } catch (e: any) {
       console.log("erro");
     }
@@ -52,11 +52,6 @@ export const AuthScreen = ({ navigation }: iHomeProps) => {
   const [inputName, setInputName] = useState<string>();
   const [inputEmail, setInputEmail] = useState<string>();
   const [inputPassword, setInputPassword] = useState<string>();
-  const dispacth: AppDispatch = useDispatch();
-
-  
-
-
   const createUser = async () => {
    
     try {
@@ -76,7 +71,7 @@ export const AuthScreen = ({ navigation }: iHomeProps) => {
     try {
       dispacth(loginUserAsync({ password: inputPassword ? inputPassword : "",
       email: inputEmail ? inputEmail : "",}))
-      navigation.navigate("Home");
+      navigation.navigate("App");
     }catch(error: any) {
 
     }
@@ -138,9 +133,9 @@ export const AuthScreen = ({ navigation }: iHomeProps) => {
             <styles.ContainerForm>
               <styles.ContainerInput>
                 <styles.Input
-                  placeholder="Name"
-                  value={inputName}
-                  onChangeText={changeTextName}
+                  placeholder="Email"
+                  value={inputEmail}
+                  onChangeText={changeTextEmail}
                 />
                 <styles.Input placeholder="Password" value={inputPassword} />
                 <styles.ContainerButton>

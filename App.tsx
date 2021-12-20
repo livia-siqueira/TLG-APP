@@ -9,7 +9,8 @@ import AuthNavigator from './src/navigation/AuthNavigator';
 import { fecthFonts } from './src/shared/fonts';
 import AppLoading from 'expo-app-loading';
 import { AppNavigator } from './src/navigation/GameNavigator';
-
+import 'react-native-gesture-handler'
+import NavigatorPrincipal from './src/navigation/AuthNavigator';
 
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
@@ -33,7 +34,7 @@ export default function App() {
     <>
     <Provider store={store}>
       <NavigationContainer>
-      <AppNavigator/>
+      <NavigatorPrincipal/>
       </NavigationContainer>
     </Provider>
     </>

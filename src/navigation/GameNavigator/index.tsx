@@ -4,8 +4,14 @@ import AuthNavigator from "../AuthNavigator";
 import {Ionicons} from  '@expo/vector-icons'
 import { Home } from "../../screens/Home";
 import { colors } from "../../shared/constants/colors";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createStackNavigator } from "react-navigation-stack";
+import { Game } from "../../screens/Game";
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 
 
+
+const MainBottom = createBottomTabNavigator();
 
 const AppDrawer = createDrawerNavigator();
 
@@ -27,13 +33,13 @@ export const AppNavigator = () => {
         
       >
         <AppDrawer.Screen
-          component={Home}
+          component={Game}
           name="Home"
           options={{
             drawerIcon: () => {
               return (
                 <Ionicons
-                  name="game-controller-outline"
+                  name="school-outline"
                   size={26}
                 />
               );
@@ -47,7 +53,7 @@ export const AppNavigator = () => {
             drawerIcon: () => {
               return (
                 <Ionicons
-                  name="game-controller-outline"
+                  name="person-circle-outline"
                   size={26}
                 />
               );
@@ -62,7 +68,7 @@ export const AppNavigator = () => {
             drawerIcon: () => {
               return (
                 <Ionicons
-                  name="game-controller-outline"
+                  name="add-circle-outline"
                   size={26}
                 />
               );

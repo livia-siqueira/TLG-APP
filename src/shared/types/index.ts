@@ -15,6 +15,9 @@ export type Game = {
   price: number;
   date: string;
   type: string;
+  color: string;
+  range: number;
+  'max-number': number;
 };
 
 export type GamesRules  = {

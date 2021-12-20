@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { Button, Text } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import { useSelector } from 'react-redux'
+import { ButtonChoiceGame } from '../../components/ButtonChoiceGame'
 import { RootState } from '../../shared/types'
 import * as styles from './styles'
 
@@ -10,15 +11,21 @@ import * as styles from './styles'
 export const Home = () => {
     const userActualBets = useSelector((state: RootState) => state.user.userActual)
     const games = useSelector((state: RootState) => state.game.games);
-    console.log(games)
-    const cart = [1, 2,3]
+    const gameActual = useSelector((state: RootState) => state.game.gameActual);
+
+    const renderGame = useCallback(() => {
+        <FlatList data={userActualBets?.bets} renderItem={item => <Text>{item}</Text>}/>
+    }, [gameActual])
+    
     return(
         <styles.Container>
-           <Text>recent games</Text>
-         {cart.map((item) =>   
-             <Button title='test' onPress={() => {}}/>
+           <styles.Buttons>
+         {games.map((item) =>   
+             <ButtonChoiceGame color={item.color} title={item.type} event={() => {}}/>
          )}
-           <FlatList data={userActualBets?.bets} renderItem={item => <Text>{item}</Text>}/>
+         </styles.Buttons>
+         <styles.Title>RECENT GAMES</styles.Title>
+          {renderGame()}
         </styles.Container>
     )
 }
