@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {User, ApiUser, SliceUser} from '../../shared/types/';
+import {User, ApiUser, SliceUser, Bet} from '../../shared/types/';
 
 const initialState : SliceUser = {
     users: [],
@@ -20,10 +20,17 @@ const controlUser = createSlice({
                 state.userActual = hasUser;
             }
             return state;
+        },
+        addBetInUser: (state, action:PayloadAction<Bet>) => {
+            const userGame = state.users.find((user) => 
+                user.id === action.payload.idUser
+            )
+            userGame?.bets.push(action.payload)
+            return state;
         }
     }
 })
 
 
-export const {createUser, loginUser} = controlUser.actions;
+export const {createUser, loginUser, addBetInUser} = controlUser.actions;
 export default controlUser.reducer; 

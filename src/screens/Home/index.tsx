@@ -21,7 +21,7 @@ export const Home = () => {
         <styles.Container>
            <styles.Buttons>
          {games.map((item) =>   
-             <ButtonChoiceGame color={item.color} title={item.type} event={() => {}}/>
+             <ButtonChoiceGame isAtive={false}color={item.color} title={item.type} event={() => {}}/>
          )}
          </styles.Buttons>
          <styles.Title>RECENT GAMES</styles.Title>

@@ -1,17 +1,23 @@
 import styled from "styled-components/native";
+import { colors } from "../../shared/constants/colors";
 
 
 export const Container = styled.View` 
-
+    width: 100%;
+    marginVertical: 20px;
+    marginHorizontal: 20px;
 `
 
 export const Title = styled.Text` 
     fontFamily: 'Roboto-BoldItalic';
     fontSize: 22px;
+    color: ${colors.colorTextTitle};
 
 `
 export const TypeGame = styled.Text` 
     fontFamily: 'Roboto-ThinItalic';
+    color: ${colors.colorTextTitle};
+   
 `
 export const PageTitle = styled.View` 
     marginVertical: 20px;
@@ -19,14 +25,46 @@ export const PageTitle = styled.View`
 
 export const Button = styled.View`
     flexDirection: row;
-    alignItems: center;
-    justifyContent: center;
+    marginVertical: 20px;
 `
 
 export const Game = styled.View` 
-    flexDirection: row;
-    marginVertical: 30px;
-    justifyContent: center;
-    alignItems: center;
+    marginVertical: 10px;
     width: 100%;
+    overflow: hidden;
+    
+`
+export const ButtonLeft = styled.View` 
+    flexDirection: row;
+    marginRight: 25px;
+`
+
+export const Description = styled.View` 
+    width: 100%;
+    marginVertical: 10px;
+
+`
+export const ContainerDescription = styled.View`
+    width: 80%;
+   
+`
+export const Text = styled.Text`
+    textAlign: left;
+    color: ${colors.colorTextTitle}
+    fontFamily: 'Roboto-BoldItalic';
+`
+
+export const TextDescription = styled.Text`
+    fontFamily: 'Roboto-ThinItalic'
+    textAlign: justify;
+    fontSize: 18;
+`
+
+export const ContainerGame = styled.View` 
+    width: 100%;
+`
+
+export const Actions = styled.View` 
+    flexDirection: row;
+
 `
