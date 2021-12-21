@@ -1,23 +1,14 @@
 
 import React from "react";
 import * as styles from "./styles";
-import { Text, View } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { FlatList } from "react-native";
 import { AppDispatch, RootNavigationGame, RootState } from "@types";
-import { ButtonChoiceGame } from "../../components/ButtonChoiceGame";
-import { ButtonBet } from "../../components/ButtonBet";
-import { FlatList } from "react-native-gesture-handler";
 import { changeGameSelected } from "../../store/Game";
-import { NavigationScreenProp } from "react-navigation";
-import { HeaderButtons, Item } from "react-navigation-header-buttons";
-import { ButtonHeader } from "../../components/ButtonHeader/HeaderButtom";
-import { useEffect } from "react";
+import { useEffect, useState, useCallback, useSelector, useDispatch, NativeStackScreenProps, HeaderButtons, Item  } from "@helpers";
 import { colors } from "../../shared/constants/colors";
-import { useCallback } from "react";
-import { ButtonAction } from "../../components/ButtonActions";
-import { useState } from "react";
 import { methodCreateBetAPI } from "../../services/api/Cart/addBetInCart";
+import {ButtonChoiceGame, ButtonBet, ButtonAction, ButtonHeader} from '@components'
+
 
 export const Game = (
   props: NativeStackScreenProps<RootNavigationGame, "Game">
@@ -25,7 +16,7 @@ export const Game = (
   const [numbersBet, setNumbersBet] = useState<number[]>([]);
   useEffect(() => {
     props.navigation.setOptions({
-      headerShown: true,
+     headerShown: true,
       headerRight: () => (
         <HeaderButtons HeaderButtonComponent={ButtonHeader}>
           <Item

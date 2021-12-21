@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { Alert, StyleSheet, Text, View } from 'react-native';
-import { AuthScreen } from './src/screens/Auth/AuthScreen';
+import { AuthScreen } from './src/screens/Auth';
 import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import store from './src/store';

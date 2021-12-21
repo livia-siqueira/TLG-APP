@@ -1,8 +1,7 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { AuthScreen } from "../../screens/Auth/AuthScreen";
+import { AuthScreen, Cart } from "@screens";
 import { colors } from "../../shared/constants/colors";
-import { Home } from "../../screens/Home";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { AppNavigator } from "../GameNavigator";
 
@@ -42,6 +41,9 @@ const styleHeaderDefault = {
     },
     App: {
       screen: AppNavigator
+    }, 
+    Cart: {
+      screen: Cart
     }
   })
   

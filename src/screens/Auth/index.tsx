@@ -1,30 +1,15 @@
-import React, { useEffect, useReducer, useCallback, useState } from "react";
-import {
-  View,
-  Text,
-  Button,
-  TextInput,
+import React, { useEffect, useCallback, useState } from "react";
+import { View,
   TouchableOpacity,
   Platform,
   TouchableNativeFeedback,
 } from "react-native";
-import { colors } from "../../shared/constants/colors";
 import * as styles from "./styles";
-import { MainButton } from "../../components/MainButton";
-import { ButtonForm } from "../../components/ButtonForm";
-import {
-  AppDispatch,
-  RootAuthStackParamList,
-  RootState,
-} from "../../shared/types";
+import { MainButton, ButtonForm} from "@components";
+import {AppDispatch} from "@types";
 import { NavigationStackProp } from "react-navigation-stack";
-import { PayloadAction } from "@reduxjs/toolkit";
-import { State } from "react-native-gesture-handler";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { gamesLoads } from "../../store/Game/thunk";
-import { loadAsync } from "expo-font";
-import { api } from "../../services/api";
-import { methodCreateUserAPI } from "../../services/api/User/createUser";
 import { creatingUser, loginUserAsync } from "../../store/User/thunk";
 interface iHomeProps {
   navigation: NavigationStackProp<any, any>;

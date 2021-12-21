@@ -10,15 +10,30 @@ import { Game } from "../../screens/Game";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StyleSheet, View, Text } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { Cart } from "../../screens";
 
 
 const Tab = createBottomTabNavigator();
+const GameStack = createNativeStackNavigator();
+
+
+const GameNavigator = () => {
+  return (
+    <GameStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <GameStack.Screen component={Game} name="Game" options={{headerShown: false}}/>
+      <GameStack.Screen component={Cart} name="Cart"/>
+    </GameStack.Navigator>
+  )
+}
 
 export const AppNavigator = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        headerShown: true,
         headerTitle: "TLG",
         headerTitleStyle: {
           color: colors.colorTextTitle,
@@ -40,10 +55,11 @@ export const AppNavigator = () => {
         },
         tabBarShowLabel: false,
       }}
+      initialRouteName=""
     >
       <Tab.Screen
         name="Home"
-        component={Game}
+        component={GameNavigator}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <View style={styles.iconTabRound}>
