@@ -21,19 +21,7 @@ const GameNavigator = () => {
   return (
     <GameStack.Navigator
       screenOptions={{
-        headerShown: false,
-      }}
-    >
-      <GameStack.Screen component={Game} name="Game" options={{headerShown: false}}/>
-      <GameStack.Screen component={Cart} name="Cart"/>
-    </GameStack.Navigator>
-  )
-}
-
-export const AppNavigator = () => {
-  return (
-    <Tab.Navigator
-      screenOptions={{
+        headerShown: true,
         headerTitle: "TLG",
         headerTitleStyle: {
           color: colors.colorTextTitle,
@@ -43,6 +31,20 @@ export const AppNavigator = () => {
         headerStyle: {
           backgroundColor: colors.colorPrimary,
         },
+      }}
+    >
+      <GameStack.Screen component={Game} name="TLG" />
+      <GameStack.Screen component={Cart} name="Cart"/>
+
+    </GameStack.Navigator>
+  )
+}
+
+export const AppNavigator = () => {
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
         tabBarStyle: {
           position: "absolute",
           bottom: 25,
@@ -55,12 +57,12 @@ export const AppNavigator = () => {
         },
         tabBarShowLabel: false,
       }}
-      initialRouteName=""
     >
       <Tab.Screen
         name="Home"
-        component={GameNavigator}
+        component={Home}
         options={{
+          headerShown: false,
           tabBarIcon: ({ focused, color, size }) => (
             <View style={styles.iconTabRound}>
               <Ionicons name="school-sharp" size={25} color={colors.colorDetailsGreen} />
@@ -82,7 +84,7 @@ export const AppNavigator = () => {
         }}
       />
       <Tab.Screen
-        component={Home}
+        component={GameNavigator}
         name="New Bet"
         options={{
           tabBarIcon: ({ focused, color, size }) => (

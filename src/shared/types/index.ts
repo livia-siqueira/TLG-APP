@@ -19,7 +19,7 @@ export type Game = {
   color: string;
   range: number;
   description: string;
-  'max-number': number;
+  'max_number': number;
 };
 
 export type Bet = {

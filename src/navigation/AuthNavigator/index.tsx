@@ -41,9 +41,6 @@ const styleHeaderDefault = {
     },
     App: {
       screen: AppNavigator
-    }, 
-    Cart: {
-      screen: Cart
     }
   })
   

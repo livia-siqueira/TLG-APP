@@ -8,6 +8,7 @@ import { useEffect, useState, useCallback, useSelector, useDispatch, NativeStack
 import { colors } from "../../shared/constants/colors";
 import { methodCreateBetAPI } from "../../services/api/Cart/addBetInCart";
 import {ButtonChoiceGame, ButtonBet, ButtonAction, ButtonHeader} from '@components'
+import { addBetCart } from "../../store/Cart";
 
 
 export const Game = (
@@ -31,7 +32,6 @@ export const Game = (
       ),
     });
   }, []);
-
   const gameActual = useSelector((state: RootState) => state.game.gameActual);
   const user = useSelector((state: RootState) => state.user.userActual);
   const dispatch: AppDispatch = useDispatch();
@@ -48,6 +48,24 @@ export const Game = (
     [setNumbersBet]
   );
 
+  const completeGame = useCallback(() => {
+    setNumbersBet((numbers) => {
+        if(gameActual){
+            const getNumbers = [...numbers];
+            while(getNumbers.length < gameActual['max_number']){
+                const numberGame = Math.floor(Math.random() * gameActual.range);
+                if(!getNumbers.includes(numberGame) && numberGame !== 0){
+                    getNumbers.push(numberGame);
+                }
+            }
+            return getNumbers;
+        }
+        else{
+            return []
+        }
+    })
+  }, [gameActual])
+
   const removeNumberInBet = useCallback(
     (item: number) => {
       setNumbersBet((numbers) => {
@@ -57,8 +75,12 @@ export const Game = (
     [setNumbersBet]
   );
 
-  const addBetInCart = useCallback(async() => {
-    await methodCreateBetAPI({numbers: numbersBet, idUser: user ? user?.id : 0, idTypeGame: gameActual ? gameActual?.id : 0, price: 30.00})
+  const resetGame = () => {
+      setNumbersBet([]);
+  }
+
+  const addBetInCart = useCallback(() => {
+   dispatch(addBetCart({numbers: numbersBet, idUser: user ? user?.id : 0, idTypeGame: gameActual ? gameActual?.id : 0, price: 30.00}))
   }, [])
   const selectGameActual = useCallback((title: string) => {
     dispatch(changeGameSelected(title));
@@ -119,13 +141,13 @@ export const Game = (
           <styles.ButtonLeft>
             <ButtonAction
               title="Clear Game"
-              event={() => {}}
+              event={resetGame}
               color="transparent"
               fontColor={colors.colorTextFooterCart}
             />
             <ButtonAction
               title="Complete Game"
-              event={() => {}}
+              event={completeGame}
               color="transparent"
               fontColor={colors.colorTextFooterCart}
             />
