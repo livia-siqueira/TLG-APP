@@ -17,8 +17,7 @@ export const controlCart = createSlice({
     reducers: {
         addBetCart: (state, action : PayloadAction<Bet>) => {
             state.bets.push(action.payload)
-            console.log('aqui entrou')
-            console.log(action.payload)
+            state.totalCart += action.payload.price;
             return state;
         }
     }

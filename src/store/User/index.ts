@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {User, ApiUser, SliceUser, Bet} from '../../shared/types/';
+import { loginUserAsync } from "./thunk";
 
 const initialState : SliceUser = {
     users: [],
@@ -28,6 +29,12 @@ const controlUser = createSlice({
             userGame?.bets.push(action.payload)
             return state;
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(loginUserAsync.fulfilled, (state, action) =>{
+           // const hasUser = state.users.find(user => user.email === action.payload);
+
+        })
     }
 })
 

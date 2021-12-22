@@ -4,6 +4,7 @@ import { AuthScreen, Cart } from "@screens";
 import { colors } from "../../shared/constants/colors";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { AppNavigator } from "../GameNavigator";
+import App from "../../../App";
 
 const styleHeaderDefault = {
     headerStyle: {
@@ -44,4 +45,4 @@ const styleHeaderDefault = {
     }
   })
   
-    export default createAppContainer(NavigatorPrincipal)
+    export default createAppContainer(NavigatorPrincipal);

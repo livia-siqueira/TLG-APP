@@ -11,6 +11,7 @@ import AppLoading from 'expo-app-loading';
 import { AppNavigator } from './src/navigation/GameNavigator';
 import 'react-native-gesture-handler'
 import NavigatorPrincipal from './src/navigation/AuthNavigator';
+import { Navigator } from './src/navigation';
 
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);

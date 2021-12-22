@@ -10,12 +10,15 @@ import {AppDispatch} from "@types";
 import { NavigationStackProp } from "react-navigation-stack";
 import { useDispatch } from "react-redux";
 import { gamesLoads } from "../../store/Game/thunk";
-import { creatingUser, loginUserAsync } from "../../store/User/thunk";
+import { creatingUser, getUserAsync, loginUserAsync } from "../../store/User/thunk";
+import AsyncStorage from  '@react-native-async-storage/async-storage';
+
 interface iHomeProps {
   navigation: NavigationStackProp<any, any>;
 }
 
 export const AuthScreen = ({ navigation }: iHomeProps) => {
+  const [Loading, setLoading] = useState<boolean>(false);
   const dispacth: AppDispatch = useDispatch();
   const getGames = useCallback(async () => {
     try {
@@ -52,13 +55,27 @@ export const AuthScreen = ({ navigation }: iHomeProps) => {
     }
   };
 
+  const loadUser = useCallback(async () => {
+    try {
+      const token = await AsyncStorage.getItem("@token");
+      if (token) {
+        await dispacth(getUserAsync(token));
+      }
+    } catch (e: any) {
+      console.log('erooo')
+    }
+  }, []);
+
   const login = async () => {
     try {
-      dispacth(loginUserAsync({ password: inputPassword ? inputPassword : "",
+     setLoading(true);
+     await dispacth(loginUserAsync({ password: inputPassword ? inputPassword : "",
       email: inputEmail ? inputEmail : "",}))
-      navigation.navigate("App");
+      loadUser();
+      //navigation.navigate("App");
     }catch(error: any) {
-
+      setLoading(false);
+      console.log('erro credenciais')
     }
   }
   const BackToDefault = () => {
@@ -122,7 +139,7 @@ export const AuthScreen = ({ navigation }: iHomeProps) => {
                   value={inputEmail}
                   onChangeText={changeTextEmail}
                 />
-                <styles.Input placeholder="Password" value={inputPassword} />
+                <styles.Input placeholder="Password" value={inputPassword} onChangeText={changeTextPassword}/>
                 <styles.ContainerButton>
                   <ButtonForm title="Log In" eventClick={login} />
                 </styles.ContainerButton>

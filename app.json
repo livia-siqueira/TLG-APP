@@ -3,7 +3,7 @@
     "name": "tlg-app",
     "slug": "tlg-app",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "splash": {
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"

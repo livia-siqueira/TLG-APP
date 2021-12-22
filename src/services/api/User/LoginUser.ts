@@ -13,7 +13,7 @@ export const loginUserAPI = async (dataUser: {
             const token : TokenApi = resp.token;
             resp.user.token = token.token;
             await AsyncStorage.setItem("@token", token.token)
-            return resp
+            return resp;
         }
         if(resp.error){
             const error : ApiError = resp.error;

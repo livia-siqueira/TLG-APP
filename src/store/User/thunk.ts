@@ -32,8 +32,20 @@ export const loginUserAsync = createAsyncThunk<
     state: RootState;
   }
 >("user/loginUser", async (user, thunkAPI) => {
-  const data = await loginUserAPI({email: user.email, password: user.password})
-  console.log(data)
-  thunkAPI.dispatch(loginUser({email: data.user.email, id: data.user.id}))
+  const userLogged = await loginUserAPI({email: user.email, password: user.password})
+  if(userLogged) {
+    thunkAPI.dispatch(loginUser(userLogged))
+  }
+  return userLogged;
 });
 
+export const getUserAsync = createAsyncThunk<void,
+string,
+{
+  dispatch: AppDispatch;
+  state: RootState;
+}>(
+  "user/getUser", async (token, thunkAPI) => {
+    console.log(token)
+  }
+)

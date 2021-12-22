@@ -1,23 +1,38 @@
-
 import React from "react";
 import * as styles from "./styles";
 import { FlatList } from "react-native";
 import { AppDispatch, RootNavigationGame, RootState } from "@types";
 import { changeGameSelected } from "../../store/Game";
-import { useEffect, useState, useCallback, useSelector, useDispatch, NativeStackScreenProps, HeaderButtons, Item  } from "@helpers";
+import {
+  useEffect,
+  useState,
+  useCallback,
+  useSelector,
+  useDispatch,
+  NativeStackScreenProps,
+  HeaderButtons,
+  Item,
+} from "@helpers";
 import { colors } from "../../shared/constants/colors";
 import { methodCreateBetAPI } from "../../services/api/Cart/addBetInCart";
-import {ButtonChoiceGame, ButtonBet, ButtonAction, ButtonHeader} from '@components'
+import {
+  ButtonChoiceGame,
+  ButtonBet,
+  ButtonAction,
+  ButtonHeader,
+} from "@components";
+import AsyncStorage from  '@react-native-async-storage/async-storage';
 import { addBetCart } from "../../store/Cart";
-
+import { getUserAsync } from "../../store/User/thunk";
 
 export const Game = (
   props: NativeStackScreenProps<RootNavigationGame, "Game">
 ) => {
   const [numbersBet, setNumbersBet] = useState<number[]>([]);
+
   useEffect(() => {
     props.navigation.setOptions({
-     headerShown: true,
+      headerShown: true,
       headerRight: () => (
         <HeaderButtons HeaderButtonComponent={ButtonHeader}>
           <Item
@@ -32,6 +47,7 @@ export const Game = (
       ),
     });
   }, []);
+
   const gameActual = useSelector((state: RootState) => state.game.gameActual);
   const user = useSelector((state: RootState) => state.user.userActual);
   const dispatch: AppDispatch = useDispatch();
@@ -41,30 +57,31 @@ export const Game = (
     (item: number) => {
       setNumbersBet((numbers) => {
         const exist = numbers?.includes(item);
-        console.log(item);
-        return [...numbers, item];
+        if (!exist) {
+          return [...numbers, item];
+        }
+        return numbers;
       });
     },
-    [setNumbersBet]
+    [gameActual]
   );
 
   const completeGame = useCallback(() => {
     setNumbersBet((numbers) => {
-        if(gameActual){
-            const getNumbers = [...numbers];
-            while(getNumbers.length < gameActual['max_number']){
-                const numberGame = Math.floor(Math.random() * gameActual.range);
-                if(!getNumbers.includes(numberGame) && numberGame !== 0){
-                    getNumbers.push(numberGame);
-                }
-            }
-            return getNumbers;
+      if (gameActual) {
+        const getNumbers = [...numbers];
+        while (getNumbers.length < gameActual["max_number"]) {
+          const numberGame = Math.floor(Math.random() * gameActual.range);
+          if (!getNumbers.includes(numberGame) && numberGame !== 0) {
+            getNumbers.push(numberGame);
+          }
         }
-        else{
-            return []
-        }
-    })
-  }, [gameActual])
+        return getNumbers;
+      } else {
+        return numbers;
+      }
+    });
+  }, [gameActual]);
 
   const removeNumberInBet = useCallback(
     (item: number) => {
@@ -76,12 +93,23 @@ export const Game = (
   );
 
   const resetGame = () => {
-      setNumbersBet([]);
-  }
+    setNumbersBet([]);
+  };
+
+  
 
   const addBetInCart = useCallback(() => {
-   dispatch(addBetCart({numbers: numbersBet, idUser: user ? user?.id : 0, idTypeGame: gameActual ? gameActual?.id : 0, price: 30.00}))
-  }, [])
+    console.log(numbersBet);
+    dispatch(
+      addBetCart({
+        numbers: numbersBet,
+        idUser: user ? user?.id : 0,
+        idTypeGame: gameActual ? gameActual?.id : 0,
+        price: gameActual ? gameActual.price : 0,
+      })
+    );
+  }, [numbersBet, gameActual]);
+  
   const selectGameActual = useCallback((title: string) => {
     dispatch(changeGameSelected(title));
   }, []);
@@ -129,10 +157,10 @@ export const Game = (
             renderItem={(item) => (
               <ButtonBet
                 title={item.item}
-                numbers = {numbersBet}
+                numbers={numbersBet}
                 selectNumber={addNumberInBet}
                 removeNumberSelect={removeNumberInBet}
-                color={gameActual ? gameActual.color : 'white'}
+                color={gameActual ? gameActual.color : "white"}
               />
             )}
           />
