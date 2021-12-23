@@ -43,3 +43,8 @@ export const Price = styled.Text`
     fontSize: 20px;
 
 `
+
+export const Trash = styled.TouchableOpacity`
+    
+
+`

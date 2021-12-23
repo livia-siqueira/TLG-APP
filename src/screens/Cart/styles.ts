@@ -2,16 +2,6 @@ import { Dimensions } from "react-native";
 import styled from "styled-components/native";
 import { colors } from "../../shared/constants/colors";
 
-export const Container = styled.View`
-  width: 90%;
-  backgroundColor: ${colors.colorWhite};
-  margin: 20px;
-  borderRadius: 12px;
-  borderColor: ${colors.colorBorderCart};
-  borderWidth: 1px;
-  height: 70%;
-`;
-
 export const Content = styled.View` 
     height: 60%;
 
@@ -28,7 +18,6 @@ export const Title = styled.Text`
     fontFamily: 'Roboto-BoldItalic';
     color: ${colors.colorTextTitle};
     fontSize: 40px;
-    marginHorizontal: 20px;
     marginVertical: 20px;
 `;
 

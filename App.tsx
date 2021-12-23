@@ -11,7 +11,7 @@ import AppLoading from 'expo-app-loading';
 import { AppNavigator } from './src/navigation/GameNavigator';
 import 'react-native-gesture-handler'
 import NavigatorPrincipal from './src/navigation/AuthNavigator';
-import { Navigator } from './src/navigation';
+import Routes  from './src/navigation';
 
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
@@ -35,7 +35,7 @@ export default function App() {
     <>
     <Provider store={store}>
       <NavigationContainer>
-      <NavigatorPrincipal/>
+      <Routes/>
       </NavigationContainer>
     </Provider>
     </>

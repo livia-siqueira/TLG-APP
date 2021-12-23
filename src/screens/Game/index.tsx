@@ -12,6 +12,7 @@ import {
   NativeStackScreenProps,
   HeaderButtons,
   Item,
+  sortNumber,
 } from "@helpers";
 import { colors } from "../../shared/constants/colors";
 import { methodCreateBetAPI } from "../../services/api/Cart/addBetInCart";
@@ -21,7 +22,6 @@ import {
   ButtonAction,
   ButtonHeader,
 } from "@components";
-import AsyncStorage from  '@react-native-async-storage/async-storage';
 import { addBetCart } from "../../store/Cart";
 import { getUserAsync } from "../../store/User/thunk";
 
@@ -30,23 +30,6 @@ export const Game = (
 ) => {
   const [numbersBet, setNumbersBet] = useState<number[]>([]);
 
-  useEffect(() => {
-    props.navigation.setOptions({
-      headerShown: true,
-      headerRight: () => (
-        <HeaderButtons HeaderButtonComponent={ButtonHeader}>
-          <Item
-            title="Cart"
-            iconName="cart"
-            color={colors.colorDetailsGreen}
-            onPress={() => {
-              props.navigation.navigate("Cart");
-            }}
-          />
-        </HeaderButtons>
-      ),
-    });
-  }, []);
 
   const gameActual = useSelector((state: RootState) => state.game.gameActual);
   const user = useSelector((state: RootState) => state.user.userActual);
@@ -99,15 +82,16 @@ export const Game = (
   
 
   const addBetInCart = useCallback(() => {
-    console.log(numbersBet);
     dispatch(
       addBetCart({
-        numbers: numbersBet,
-        idUser: user ? user?.id : 0,
-        idTypeGame: gameActual ? gameActual?.id : 0,
+        choosen_numbers: sortNumber(numbersBet),
+        user_id: user ? user?.id : 0,
+        game_id: gameActual ? gameActual?.id : 0,
         price: gameActual ? gameActual.price : 0,
+        created_at: new Date().toString()
       })
     );
+    resetGame();
   }, [numbersBet, gameActual]);
   
   const selectGameActual = useCallback((title: string) => {

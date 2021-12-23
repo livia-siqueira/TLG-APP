@@ -9,12 +9,15 @@ interface cart {
   color: string | undefined;
   numbers: number[];
   price: number;
+  eventRemoveBet(numers: number[]) : void
 }
 
 export const ItemCart = (props: cart) => {
   return (
     <styles.Card>
+      <styles.Trash onPress={props.eventRemoveBet.bind(this, props.numbers)}>
       <Ionicons name="trash-outline" size={26} />
+      </styles.Trash>
       <styles.Container color={props.color ? props.color : "white"}>
         <styles.Content>
           <styles.Numbers>{props.numbers.join(",")}</styles.Numbers>

@@ -14,6 +14,21 @@ export type CartAPI = {
   id: string,
   numbers: number[]
 }
+
+export type BetApi = {
+  id: number;
+  user_id: number;
+  game_id: number;
+  choosen_numbers: string;
+  price: number;
+  created_at: string;
+  ["type"]: {
+    id: string;
+    type: string;
+  };
+};
+
+
 export type Game = {
   id: number;
   numbers: number[];
@@ -27,10 +42,11 @@ export type Game = {
 };
 
 export type Bet = {
-  idUser: number;
-  numbers: number[];
+  user_id: number;
+  choosen_numbers: number[];
   price: number;
-  idTypeGame: number;
+  game_id: number;
+  created_at: string;
 }
 
 export type GamesRules  = {
@@ -43,6 +59,8 @@ export type User = {
   name: string;
   email: string;
   bets: Bet[];
+  is_admin: number;
+  password: string;
 };
 
 export type ApiUser = {

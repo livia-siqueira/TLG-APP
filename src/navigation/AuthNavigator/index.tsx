@@ -30,19 +30,10 @@ const styleHeaderDefault = {
         }}
       >
         <AuthStack.Screen component={AuthScreen} name="AuthScreen" options={{headerShown: false}}/>
-        <AuthStack.Screen component={AppNavigator} name="App"/>
       </AuthStack.Navigator>
       
     );
   };
 
-  const NavigatorPrincipal = createSwitchNavigator({
-    Auth: {
-      screen: AuthNavigator
-    },
-    App: {
-      screen: AppNavigator
-    }
-  })
-  
-    export default createAppContainer(NavigatorPrincipal);
+ 
+    export default AuthNavigator;

@@ -1,8 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { createUser, loginUser } from ".";
+import { createUser, loginUser, setUser } from ".";
 import { methodCreateUserAPI } from "../../services/api/User/createUser";
+import { getUser } from "../../services/api/User/getUser";
 import { loginUserAPI } from "../../services/api/User/LoginUser";
-import { AppDispatch, Game, RootState, User } from "../../shared/types";
+import updateAccount from "../../services/api/User/updateAccount";
+import { AppDispatch, RootState } from "../../shared/types";
 
 export const creatingUser = createAsyncThunk<
   void,
@@ -46,6 +48,25 @@ string,
   state: RootState;
 }>(
   "user/getUser", async (token, thunkAPI) => {
-    console.log(token)
+    const data  = await getUser();
+    console.log(data)
+    if(data) {
+      thunkAPI.dispatch(setUser(data))
+    }
+    return data;
+  }
+)
+
+
+export const updateUserAsync = createAsyncThunk<void,
+{name: string, email: string},
+{
+  dispatch: AppDispatch;
+  state: RootState;
+}>(
+  "user/updateAccount", async (dataNew, thunkAPI) => {
+    const data  = await updateAccount(dataNew);
+    console.log(data);
+    return data;
   }
 )

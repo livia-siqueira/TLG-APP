@@ -1,17 +1,23 @@
 import React, { useEffect, useCallback, useState } from "react";
-import { View,
+import {
+  View,
   TouchableOpacity,
   Platform,
   TouchableNativeFeedback,
+  Alert,
 } from "react-native";
 import * as styles from "./styles";
-import { MainButton, ButtonForm} from "@components";
-import {AppDispatch} from "@types";
+import { MainButton, ButtonForm } from "@components";
+import { AppDispatch, RootState } from "@types";
 import { NavigationStackProp } from "react-navigation-stack";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { gamesLoads } from "../../store/Game/thunk";
-import { creatingUser, getUserAsync, loginUserAsync } from "../../store/User/thunk";
-import AsyncStorage from  '@react-native-async-storage/async-storage';
+import {
+  creatingUser,
+  getUserAsync,
+  loginUserAsync,
+} from "../../store/User/thunk";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface iHomeProps {
   navigation: NavigationStackProp<any, any>;
@@ -40,19 +46,18 @@ export const AuthScreen = ({ navigation }: iHomeProps) => {
   const [inputName, setInputName] = useState<string>();
   const [inputEmail, setInputEmail] = useState<string>();
   const [inputPassword, setInputPassword] = useState<string>();
+  const userActual = useSelector((state: RootState) => state.user.userActual);
   const createUser = async () => {
-   
     try {
-    dispacth(
-      creatingUser({
-        name: inputName ? inputName : "",
-        password: inputPassword ? inputPassword : "",
-        email: inputEmail ? inputEmail : "",
-      })
-    );
-    }catch(error: any) {
-
-    }
+      dispacth(
+        creatingUser({
+          name: inputName ? inputName : "",
+          password: inputPassword ? inputPassword : "",
+          email: inputEmail ? inputEmail : "",
+        })
+      );
+      resetFields();
+    } catch (error: any) {}
   };
 
   const loadUser = useCallback(async () => {
@@ -61,23 +66,32 @@ export const AuthScreen = ({ navigation }: iHomeProps) => {
       if (token) {
         await dispacth(getUserAsync(token));
       }
+      resetFields();
     } catch (e: any) {
-      console.log('erooo')
+      console.log("erooo");
     }
   }, []);
 
   const login = async () => {
     try {
-     setLoading(true);
-     await dispacth(loginUserAsync({ password: inputPassword ? inputPassword : "",
-      email: inputEmail ? inputEmail : "",}))
+      setLoading(true);
+      await dispacth(
+        loginUserAsync({
+          password: inputPassword ? inputPassword : "",
+          email: inputEmail ? inputEmail : "",
+        })
+      );
       loadUser();
-      //navigation.navigate("App");
-    }catch(error: any) {
+      if (userActual) {
+        resetFields();
+        return navigation.navigate("App");
+      }
+      console.log("usuário nao existe");
+    } catch (error: any) {
       setLoading(false);
-      console.log('erro credenciais')
+      console.log("erro credenciais");
     }
-  }
+  };
   const BackToDefault = () => {
     setIsLogin(false);
     setIsRegister(false);
@@ -93,6 +107,12 @@ export const AuthScreen = ({ navigation }: iHomeProps) => {
 
   const changeTextPassword = (inputText: string) => {
     setInputPassword(inputText);
+  };
+
+  const resetFields = () => {
+    setInputEmail("");
+    setInputName("");
+    setInputPassword("");
   };
 
   let TypeTouchable: typeof TouchableOpacity | typeof TouchableNativeFeedback =
@@ -139,7 +159,12 @@ export const AuthScreen = ({ navigation }: iHomeProps) => {
                   value={inputEmail}
                   onChangeText={changeTextEmail}
                 />
-                <styles.Input placeholder="Password" value={inputPassword} onChangeText={changeTextPassword}/>
+                <styles.Input
+                  autoCompleteType="password"
+                  placeholder="Password"
+                  value={inputPassword}
+                  onChangeText={changeTextPassword}
+                />
                 <styles.ContainerButton>
                   <ButtonForm title="Log In" eventClick={login} />
                 </styles.ContainerButton>
@@ -169,6 +194,7 @@ export const AuthScreen = ({ navigation }: iHomeProps) => {
                     placeholder="Password"
                     value={inputPassword}
                     onChangeText={changeTextPassword}
+                    autoCompleteType="password"
                   />
                   <styles.ContainerButton>
                     <ButtonForm title="Register" eventClick={createUser} />

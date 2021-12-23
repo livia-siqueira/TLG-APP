@@ -24,20 +24,21 @@ const controlUser = createSlice({
         },
         addBetInUser: (state, action:PayloadAction<Bet>) => {
             const userGame = state.users.find((user) => 
-                user.id === action.payload.idUser
+                user.id === action.payload.user_id
             )
             userGame?.bets.push(action.payload)
             return state;
+        },
+        setUser: (state, action:PayloadAction<User>) => {
+            state.userActual = action.payload;
+            return state;
+        },
+        logoutUser: (state, action: PayloadAction) => {
+            state.userActual= null;
         }
-    },
-    extraReducers: (builder) => {
-        builder.addCase(loginUserAsync.fulfilled, (state, action) =>{
-           // const hasUser = state.users.find(user => user.email === action.payload);
-
-        })
     }
 })
 
 
-export const {createUser, loginUser, addBetInUser} = controlUser.actions;
+export const {logoutUser, createUser, loginUser, setUser, addBetInUser} = controlUser.actions;
 export default controlUser.reducer; 

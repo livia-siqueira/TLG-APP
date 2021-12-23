@@ -6,13 +6,15 @@ import { AppNavigator } from "./GameNavigator";
 
 
 
-export const Navigator = () => {
-    const userActual = useSelector((state : RootState) => state.user.userActual);
+import React from 'react';
 
-    if(userActual) {
-        return <AppNavigator />;
-    }
-    else{
-        return <AuthNavigator/>;
-    }
-}
+import AuthRoutes from './AuthNavigator/index';
+
+const Routes: React.FC = () => {
+  const hasUserLogged = useSelector((state: RootState) => state.user.userActual);
+
+
+  return hasUserLogged ? <AppNavigator/> : <AuthRoutes />;
+};
+
+export default Routes;

@@ -11,6 +11,9 @@ import * as styles from "./styles";
 import { Ionicons } from "@expo/vector-icons";
 import { formatNumber } from "@helpers";
 import { addBetInCartAsync } from "../../store/Cart/thunk";
+import { Card } from "../../components/Card";
+import { removeBetCart } from "../../store/Cart";
+import { getBetAsync } from "../../store/Bet/thunk";
 
 export const Cart = (
   props: NativeStackScreenProps<RootNavigationGame, "Cart">
@@ -21,17 +24,20 @@ export const Cart = (
   const games = useSelector((state: RootState) => state.game.games);
   const cartTotal = useSelector((state: RootState) => state.cart.totalCart);
   const betsOfUser = cartUser.filter((bet) => {
-    bet.idUser === userLogged?.id;
+    bet.user_id === userLogged?.id;
   });
-  console.log(cartUser);
 
-  const itemsApi = cartUser.map((item) => {
-    return { id: item.idTypeGame.toString(), numbers: [...item.numbers] };
+  
+  const items = cartUser.map((item) => {
+    return { id: item.game_id.toString(), numbers: [...item.choosen_numbers] };
   });
+
+  const eventRemoveBet = useCallback((numbers: number[]) => {
+    dispatch(removeBetCart(numbers))
+  }, [])
 
   const addBetInCart = useCallback(async () => {
-   
-   await dispatch(addBetInCartAsync(itemsApi))
+   await dispatch(addBetInCartAsync(items))
   }, [userLogged, cartUser])
 
   useEffect(() => {
@@ -52,7 +58,7 @@ export const Cart = (
     });
   }, []);
   return (
-    <styles.Container>
+    <Card>
       <styles.Title>Cart</styles.Title>
       <styles.Content>
         <FlatList
@@ -60,14 +66,15 @@ export const Cart = (
           data={cartUser}
           renderItem={(item) => {
             const gameBet = games.find(
-              (gam) => gam.id === item.item.idTypeGame
+              (gam) => gam.id === item.item.game_id
             );
             return (
               <ItemCart
                 type={gameBet?.type}
                 color={gameBet?.color}
-                numbers={item.item.numbers}
+                numbers={item.item.choosen_numbers}
                 price={item.item.price}
+                eventRemoveBet={eventRemoveBet}
               />
             );
           }}
@@ -88,6 +95,6 @@ export const Cart = (
           </styles.TextButton>
         </View>
       </styles.Button>
-    </styles.Container>
+    </Card>
   );
 };

@@ -13,3 +13,16 @@ export  function formatNumber(number: number){
         currency: "BRL",
       }).format(number)
 }
+
+export function sortNumber(numbers: number[]) {
+  return numbers.sort((a, b) => {
+    return a-b;
+  })
+}
+
+export const sameValues = (ofState: number[], ofPayload: number[]) => {
+  return (
+    ofState.length === ofPayload.length &&
+    ofState.every((item, index) => item === ofPayload[index])
+  );
+};

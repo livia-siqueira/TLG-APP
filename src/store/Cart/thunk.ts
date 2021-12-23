@@ -12,7 +12,6 @@ void,
   }>(
     'addBetInCart',
     async (bet, thunkAPI) => {
-        const addApi = bet
         const data = await methodCreateBetAPI({games: bet})
         console.log(data)
     }
