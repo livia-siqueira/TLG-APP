@@ -17,6 +17,7 @@ export const ContainerButton = styled.TouchableOpacity<propsButton>`
     paddingHorizontal: 12px;
     paddingVertical: 5px;
     marginHorizontal: 10px;
+    marginVertical: 6px;
     backgroundColor: ${(props) => props.isAtive ? props.color : 'white'};
 `
 

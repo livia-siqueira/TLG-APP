@@ -35,8 +35,10 @@ export const loginUserAsync = createAsyncThunk<
   }
 >("user/loginUser", async (user, thunkAPI) => {
   const userLogged = await loginUserAPI({email: user.email, password: user.password})
+  console.log(userLogged)
   if(userLogged) {
-    thunkAPI.dispatch(loginUser(userLogged))
+    console.log(userLogged.user.id)
+    thunkAPI.dispatch(loginUser({id: userLogged.user.id}))
   }
   return userLogged;
 });
@@ -49,7 +51,6 @@ string,
 }>(
   "user/getUser", async (token, thunkAPI) => {
     const data  = await getUser();
-    console.log(data)
     if(data) {
       thunkAPI.dispatch(setUser(data))
     }

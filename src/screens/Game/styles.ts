@@ -4,9 +4,10 @@ import { colors } from "../../shared/constants/colors";
 
 export const Container = styled.View` 
     width: 100%;
-    marginVertical: 20px;
+    marginVertical: 10px;
     marginHorizontal: 20px;
     flex: 1;
+    marginBottom: 30px;
 `
 
 export const Title = styled.Text` 
@@ -27,6 +28,9 @@ export const PageTitle = styled.View`
 export const Button = styled.View`
     flexDirection: row;
     marginVertical: 20px;
+    justifyContent: center;
+    alignItems: center;
+    textAlign: center;
 `
 
 export const Game = styled.View` 
@@ -62,12 +66,10 @@ export const TextDescription = styled.Text`
 
 export const ContainerGame = styled.View` 
     width: 100%;
-    height: 100%;
     flex: 1;
     flexGrow: 1;
 `
 
 export const Actions = styled.View` 
     flexDirection: row;
-
 `

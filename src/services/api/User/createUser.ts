@@ -17,9 +17,10 @@ export const methodCreateUserAPI = async (dataUser: {
         }
         if(resp.error){
             const error : ApiError = resp.error;
-            throw new Error(error.message)
+            console.log(error)
+            return error;
         }
     }catch(e: any) {
-        throw new Error(e.response.data.error.message)
+        return e.response.data.error.message
     }
 }

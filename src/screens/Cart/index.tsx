@@ -50,7 +50,7 @@ export const Cart = (
             iconName="person-circle-outline"
             color={colors.colorDetailsGreen}
             onPress={() => {
-              props.navigation.navigate("Cart");
+              props.navigation.navigate("Home");
             }}
           />
         </HeaderButtons>

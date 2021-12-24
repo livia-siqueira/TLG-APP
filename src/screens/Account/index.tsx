@@ -17,6 +17,8 @@ export const Account : React.FC = () => {
     const [inputName, setInputName] = useState<string>(userActual ? userActual.name : '');
     const [inputPassword, setInputPassword] = useState<string>(userActual ? userActual.password : '');
     const [inputEmail, setInputEmail] = useState<string>(userActual ? userActual.email : '');
+    const [stateInputs, setStateInputs] = useState<boolean>(false);
+   
 
 
     const changeTextInputName = (text: string) => {
@@ -31,12 +33,10 @@ export const Account : React.FC = () => {
         dispatch(updateUserAsync({email: inputEmail ? inputEmail : '', name: inputName ? inputName : ''}))
     }, [dispatch, inputName, inputPassword, inputEmail])
 
-    let isEditable = false;
 
    const putAlter = useCallback(() => {
-       
-   }, [])
-    console.log(isEditable)
+       stateInputs === true ? setStateInputs(false) : setStateInputs(true);
+   }, [stateInputs, setStateInputs])
 
     return (
         <Card>
@@ -48,8 +48,8 @@ export const Account : React.FC = () => {
         <Ionicons name="person-circle-outline" size={60}/>
         </styles.ContainerImage>
         <styles.Title>{userActual ? userActual.name : ''}</styles.Title>
-        <styles.Input placeholder='Name' editable={isEditable} value={inputName} onChangeText={changeTextInputName}/>
-        <styles.Input autoCompleteType="password" editable={isEditable} placeholder='Email' value={userActual ? userActual.email : inputName} onChangeText={changeTextInputEmail}/>
+        <styles.Input placeholder='Name' editable={stateInputs} value={inputName} onChangeText={changeTextInputName}/>
+        <styles.Input autoCompleteType="password" editable={stateInputs} placeholder='Email' value={userActual ? userActual.email : inputName} onChangeText={changeTextInputEmail}/>
         <styles.Button onPress={updateUser}>
             <styles.TextButton>Save</styles.TextButton>
         </styles.Button>

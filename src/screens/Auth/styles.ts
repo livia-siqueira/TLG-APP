@@ -13,18 +13,18 @@ export const TextButton = styled.Text`
 `
 
 export const Title = styled.Text`
-  fontSize: 50px;
+  font-size: 50px;
   color: ${colors.colorTextTitle};
-  textAlign: center;
-  lineHeight: 82px;
-  fontFamily: "Roboto-BoldItalic";
+  text-align: center;
+  line-height: 82px;
+  font-family: "Roboto-BoldItalic";
 `;
 
 export const TitleDiferent = styled.View`
-  backgroundColor: ${colors.colorDetailsGreen};
+  background-color: ${colors.colorDetailsGreen};
   color: ${colors.colorWhite};
-  borderRadius: 70px;
-  paddingHorizontal: 20px;
+  border-radius: 70px;
+  padding-horizontal: 20px;
 `;
 
 export const ContainerTitleForm = styled.View`
@@ -43,24 +43,34 @@ export const ContainerButton = styled.View`
   marginVertical: 30px;
   width: 380px;
 `;
+
+export const TextPassword = styled.TouchableOpacity`
+  margin: 20px;`
+
+export const Text = styled.Text`
+  font-size: 18px;
+  color: ${colors.colorText};
+  font-family: 'Roboto-ThinItalic';
+  text-align: right;
+`
 export const TextSpecial = styled.Text`
-  fontSize: 50px;
+  font-size: 50px;
   color: ${colors.colorWhite};
-  fontFamily: "Roboto-BoldItalic";
+  font-family: "Roboto-BoldItalic";
 `;
 
 export const Content = styled.View`
   flex: 1;
-  justifyContent: center;
-  alignItems: center;
-  backgroundColor: ${colors.colorPrimary};
+  justify-content: center;
+  align-items: center;
+  background-color: ${colors.colorPrimary};
 `;
 
 export const ContainerForm = styled.View`
-  alignItems: center;
-  justifyContent: center;
-  backgroundColor: ${colors.colorWhite};
-  borderRadius: 20px;
+  align-items: center;
+  justify-content: center;
+  background-color: ${colors.colorWhite};
+  border-radius: 20px;
   border: 1px solid ${colors.colorBorderForm};
   height: 60%;
   width: 380px;
@@ -71,9 +81,9 @@ export const ContainerInput = styled.View`
 
 export const Input = styled.TextInput`
     width: 380px;
-    paddingHorizontal: 12px;
-    fontSize: 20px;
+    padding: 12px;
+    font-size: 20px;
     height: 70px;
-    borderBottomColor: ${colors.colorBorderBottomHeader};
-    borderBottomWidth: 1px;
+    border-bottom-color: ${colors.colorBorderBottomHeader};
+    border-bottom-width: 1px;
 `

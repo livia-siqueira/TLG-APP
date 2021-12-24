@@ -15,8 +15,9 @@ const controlUser = createSlice({
             state.users.push(action.payload)
             return state;
         },
-        loginUser: (state, action:PayloadAction<{email: string, id: number}>) => {
+        loginUser: (state, action:PayloadAction<{id: number}>) => {
             const hasUser = state.users.find(user => user.id === action.payload.id);
+            console.log(hasUser)
             if(hasUser) {
                 state.userActual = hasUser;
             }
@@ -33,8 +34,8 @@ const controlUser = createSlice({
             state.userActual = action.payload;
             return state;
         },
-        logoutUser: (state, action: PayloadAction) => {
-            state.userActual= null;
+        logoutUser: (state) => {
+            state.userActual = null;
         }
     }
 })

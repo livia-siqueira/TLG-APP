@@ -10,8 +10,8 @@ interface DetailsButton {
 
 export const Container = styled.TouchableOpacity<DetailsButton>` 
     backgroundColor: ${props => props.isAtive ? props.color : colors.colorDefaultButton}
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
     borderRadius: 20px;
     marginHorizontal: 5px;
     marginVertical: 5px;

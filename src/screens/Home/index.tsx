@@ -1,24 +1,60 @@
+import { NativeStackScreenProps} from '@react-navigation/native-stack'
 import React, { useCallback, useEffect } from 'react'
 import { Button, Text } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
+import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import { useDispatch, useSelector } from 'react-redux'
 import { ButtonChoiceGame } from '../../components/ButtonChoiceGame'
+import { ButtonHeader } from '../../components/ButtonHeader'
 import { ItemBet } from '../../components/ItemBet'
 import { getBet } from '../../services/api/Cart/getBet'
-import { AppDispatch, RootState } from '../../shared/types'
+import { colors } from '../../shared/constants/colors'
+import { AppDispatch, RootNavigationGame, RootState } from '../../shared/types'
 import { filterGame, setBets } from '../../store/Bet'
 import { getBetAsync } from '../../store/Bet/thunk'
 import * as styles from './styles'
+import AsyncStorage from  '@react-native-async-storage/async-storage';
+import { logoutUser } from '../../store/User'
 
 
 
-export const Home : React.FC = () => {
+
+export const Home = (props: NativeStackScreenProps<RootNavigationGame, "Home">) => {
     const userActualBets = useSelector((state: RootState) => state.user.userActual)
     const games = useSelector((state: RootState) => state.game.games);
     const betPlaced = useSelector((state: RootState) => state.bet.betsPlaced);
     const gamesOnFilter = useSelector((state: RootState) => state.bet.betsSelected);
-    
     const dispatch : AppDispatch = useDispatch();
+
+
+    const handleLogout = async () => {
+      try {
+        await AsyncStorage.removeItem("@token");
+        dispatch(logoutUser());
+        console.log('oq rolou');
+      } catch (e: any) {
+        console.log(e)
+        console.log('veio aqui')
+      }
+    }
+
+    
+    useEffect(() => {
+        props.navigation.setOptions({
+          headerShown: true,
+          headerRight: () => (
+            <HeaderButtons HeaderButtonComponent={ButtonHeader}>
+              <Item
+                title="New Bet"
+                iconName='log-out-outline'
+                color={colors.colorDetailsGreen}
+                onPress= {handleLogout}
+              />
+            </HeaderButtons>
+          ),
+        });
+      }, []);
+
    
     const gamesJust = userActualBets?.bets.map((game) => {
         return game.game_id;
@@ -31,6 +67,8 @@ export const Home : React.FC = () => {
           console.log(`falhou`)
           }
     }, [gamesOnFilter])
+
+
 
     useEffect(() => {
         handleBets();

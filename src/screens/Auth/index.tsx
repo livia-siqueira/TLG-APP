@@ -1,45 +1,25 @@
 import React, { useEffect, useCallback, useState } from "react";
-import {
-  View,
-  TouchableOpacity,
-  Platform,
-  TouchableNativeFeedback,
-  Alert,
-} from "react-native";
+import { Alert, View } from "react-native";
 import * as styles from "./styles";
 import { MainButton, ButtonForm } from "@components";
 import { AppDispatch, RootState } from "@types";
 import { NavigationStackProp } from "react-navigation-stack";
 import { useDispatch, useSelector } from "react-redux";
-import { gamesLoads } from "../../store/Game/thunk";
 import {
-  creatingUser,
-  getUserAsync,
-  loginUserAsync,
-} from "../../store/User/thunk";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+  creatingUser,loginUserAsync,} from "../../store/User/thunk";
+import { Modal } from "../ModalResetPassword";
 
 interface iHomeProps {
   navigation: NavigationStackProp<any, any>;
 }
 
 export const AuthScreen = ({ navigation }: iHomeProps) => {
-  const [Loading, setLoading] = useState<boolean>(false);
+  const [modalStatus, setModalStatus] = useState<boolean>(false);
   const dispacth: AppDispatch = useDispatch();
-  const getGames = useCallback(async () => {
-    try {
-      await dispacth(gamesLoads());
-    } catch (e: any) {
-      console.log("erro");
-    }
-  }, []);
 
-  useEffect(() => {
-    async function a() {
-      await getGames();
-    }
-    a();
-  }, [getGames]);
+  const handleModalEvent = useCallback(() => {
+    modalStatus ? setModalStatus(false) : setModalStatus(true);
+  }, [setModalStatus, modalStatus]);
 
   const [isLogin, setIsLogin] = useState<boolean>(false);
   const [isRegister, setIsRegister] = useState<boolean>(false);
@@ -48,50 +28,56 @@ export const AuthScreen = ({ navigation }: iHomeProps) => {
   const [inputPassword, setInputPassword] = useState<string>();
   const userActual = useSelector((state: RootState) => state.user.userActual);
   const createUser = async () => {
+    if(inputEmail?.trim() && inputName?.trim() && inputPassword?.trim){
+      
     try {
-      dispacth(
+   
+     const resp = await dispacth(
         creatingUser({
           name: inputName ? inputName : "",
           password: inputPassword ? inputPassword : "",
           email: inputEmail ? inputEmail : "",
         })
       );
-      resetFields();
-    } catch (error: any) {}
+      
+      if(resp.meta.requestStatus ===  "rejected"){
+
+      }
+      
+    } catch (error: any) {
+      console.log(error)
+    }
+  }else{
+    Alert.alert("Failed Register", "Fiels empty", [
+      {
+        text: "Ok",
+        onPress: BackToDefault
+      }
+    ])
+  }
   };
 
-  const loadUser = useCallback(async () => {
-    try {
-      const token = await AsyncStorage.getItem("@token");
-      if (token) {
-        await dispacth(getUserAsync(token));
-      }
-      resetFields();
-    } catch (e: any) {
-      console.log("erooo");
-    }
-  }, []);
+  
 
   const login = async () => {
     try {
-      setLoading(true);
-      await dispacth(
+      const resp =await dispacth(
         loginUserAsync({
           password: inputPassword ? inputPassword : "",
           email: inputEmail ? inputEmail : "",
         })
       );
-      loadUser();
-      if (userActual) {
+      if (resp.payload) {
         resetFields();
-        return navigation.navigate("App");
+
+        navigation.navigate("App")
       }
       console.log("usuário nao existe");
     } catch (error: any) {
-      setLoading(false);
       console.log("erro credenciais");
     }
   };
+
   const BackToDefault = () => {
     setIsLogin(false);
     setIsRegister(false);
@@ -114,13 +100,6 @@ export const AuthScreen = ({ navigation }: iHomeProps) => {
     setInputName("");
     setInputPassword("");
   };
-
-  let TypeTouchable: typeof TouchableOpacity | typeof TouchableNativeFeedback =
-    TouchableOpacity;
-
-  if (Platform.OS === "android" && Platform.Version >= 21) {
-    TypeTouchable = TouchableNativeFeedback;
-  }
 
   return (
     <styles.Container>
@@ -151,34 +130,40 @@ export const AuthScreen = ({ navigation }: iHomeProps) => {
 
         {isLogin ? (
           <View>
-            <styles.TitleForm>Authentication</styles.TitleForm>
-            <styles.ContainerForm>
-              <styles.ContainerInput>
-                <styles.Input
-                  placeholder="Email"
-                  value={inputEmail}
-                  onChangeText={changeTextEmail}
-                />
-                <styles.Input
-                  autoCompleteType="password"
-                  placeholder="Password"
-                  value={inputPassword}
-                  onChangeText={changeTextPassword}
-                />
-                <styles.ContainerButton>
-                  <ButtonForm title="Log In" eventClick={login} />
-                </styles.ContainerButton>
-              </styles.ContainerInput>
-            </styles.ContainerForm>
-            <styles.ContainerButton>
-              <ButtonForm title="Back" eventClick={BackToDefault} />
-            </styles.ContainerButton>
+            <View style={{ opacity: modalStatus ? 0.2 : 1 }}>
+              <styles.TitleForm>Authentication</styles.TitleForm>
+              <styles.ContainerForm>
+                <styles.ContainerInput>
+                  <styles.Input
+                    placeholder="Email"
+                    value={inputEmail}
+                    onChangeText={changeTextEmail}
+                  />
+                  <styles.Input
+                    autoCompleteType="password"
+                    placeholder="Password"
+                    value={inputPassword}
+                    onChangeText={changeTextPassword}
+                  />
+                  <styles.TextPassword onPress={handleModalEvent}>
+                    <styles.Text>I forget my password</styles.Text>
+                  </styles.TextPassword>
+                  <styles.ContainerButton>
+                    <ButtonForm title="Log In" eventClick={login} />
+                  </styles.ContainerButton>
+                </styles.ContainerInput>
+              </styles.ContainerForm>
+              <styles.ContainerButton>
+                <ButtonForm title="Back" eventClick={BackToDefault} />
+              </styles.ContainerButton>
+            </View>
+            {modalStatus && <Modal eventBackPage={handleModalEvent} />}
           </View>
         ) : (
           isRegister && (
             <View>
               <styles.TitleForm>Register</styles.TitleForm>
-              <styles.ContainerForm>
+              <styles.ContainerForm style={{ height: 400 }}>
                 <View>
                   <styles.Input
                     placeholder="Name"
@@ -198,10 +183,10 @@ export const AuthScreen = ({ navigation }: iHomeProps) => {
                   />
                   <styles.ContainerButton>
                     <ButtonForm title="Register" eventClick={createUser} />
-                    <ButtonForm title="Back" eventClick={BackToDefault} />
                   </styles.ContainerButton>
                 </View>
               </styles.ContainerForm>
+              <ButtonForm title="Back" eventClick={BackToDefault} />
             </View>
           )
         )}

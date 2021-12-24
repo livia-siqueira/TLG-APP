@@ -1,11 +1,8 @@
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import React, { useCallback } from "react";
-import AuthNavigator from "../AuthNavigator";
+import React, { ReactNode, useCallback } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { Home } from "../../screens/Home";
 import { colors } from "../../shared/constants/colors";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createStackNavigator } from "react-navigation-stack";
 import { Game } from "../../screens/Game";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StyleSheet, View, Text, GestureResponderEvent } from "react-native";
@@ -18,7 +15,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { ButtonHeader } from "@components";
 import { logoutUser } from "../../store/User";
-import AsyncStorage from  '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Tab = createBottomTabNavigator();
 const GameStack = createNativeStackNavigator();
@@ -26,39 +23,30 @@ const GameStack = createNativeStackNavigator();
 const GameNavigator = () => {
   return (
     <GameStack.Navigator>
-      <GameStack.Screen options={{headerShown: false}} component={Game} name="TLG" />
+      <GameStack.Screen
+        options={{ headerShown: false }}
+        component={Game}
+        name="TLG"
+      />
       <GameStack.Screen component={Cart} name="Cart" />
     </GameStack.Navigator>
   );
 };
 
-
-const CustomButtonTab = (props: { onPress: (((event: GestureResponderEvent) => void) & (() => void)) | undefined; children: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined; }) => {
-  return (
-  <TouchableOpacity style={{top: -30, justifyContent: "center", alignItems: 'center', }} onPress={props.onPress}>
-    <View style={{width: 70, height: 60, borderRadius: 90 ,backgroundColor: colors.colorDetailsGreen,}}>
-    {props.children}
-    </View>
-  </TouchableOpacity>
-  );
-}
-
 export const AppNavigator = () => {
   const userLogged = useSelector((state: RootState) => state.user.userActual);
   const hasAdmin = userLogged ? userLogged.is_admin : 0;
-  const dispatch : AppDispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
   const handleLogout = async () => {
     try {
       await AsyncStorage.removeItem("@token");
       dispatch(logoutUser());
-      console.log('oq rolou');
     } catch (e: any) {
-      console.log(e)
+      console.log(e);
     }
   };
 
-  
   return (
     <Tab.Navigator
       screenOptions={{
@@ -74,10 +62,10 @@ export const AppNavigator = () => {
         },
         tabBarStyle: {
           position: "absolute",
-          bottom: 25,
-          left: 20,
-          right: 20,
-          elevation: 2,
+          bottom: 2,
+          left: 10,
+          right: 10,
+          elevation: 3,
           backgroundColor: colors.colorWhite,
           borderRadius: 15,
           height: 60,
@@ -121,14 +109,34 @@ export const AppNavigator = () => {
         name="Post"
         component={Home}
         options={() => ({
-          tabBarIcon: ({ color }) => 
+          tabBarIcon: ({ color }) => (
             <Ionicons
               name="log-out-outline"
               size={25}
               color={colors.colorFooterCart}
             />
-          ,
-          tabBarButton: (props) => <CustomButtonTab {...props} onPress={handleLogout}/>
+          ),
+          tabBarOnPress: handleLogout,
+          tabBarButton: (props) => (
+            <TouchableOpacity
+              style={{
+                top: -10,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <View
+                style={{
+                  width: 60,
+                  height: 60,
+                  borderRadius: 90,
+                  backgroundColor: colors.colorDetailsGreen,
+                }}
+              >
+                {props.children}
+              </View>
+            </TouchableOpacity>
+          ),
         })}
       />
       <Tab.Screen
@@ -142,21 +150,10 @@ export const AppNavigator = () => {
                 size={25}
                 color={colors.colorDetailsGreen}
               />
-              <Text style={styles.text}>Bet now</Text>
+              <Text style={styles.text}>New Bet</Text>
             </View>
           ),
-          headerRight: () => (
-            <HeaderButtons HeaderButtonComponent={ButtonHeader}>
-              <Item
-                title="Cart"
-                iconName="cart"
-                color={colors.colorDetailsGreen}
-                onPress={() => {
-                  
-                }}
-              />
-            </HeaderButtons>
-          )
+          headerShown: false,
         }}
       />
       {hasAdmin === 1 ? (

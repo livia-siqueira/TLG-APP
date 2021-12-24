@@ -6,6 +6,7 @@ export const Container = styled.View`
     marginVertical: 30px;
     marginHorizontal: 20px;
     width: 90%;
+    marginBottom: 180px;
 `
 
 export const Buttons = styled.View`

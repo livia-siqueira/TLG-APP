@@ -36,6 +36,25 @@ export const Game = (
   const dispatch: AppDispatch = useDispatch();
   const games = useSelector((state: RootState) => state.game.games);
 
+
+  useEffect(() => {
+    props.navigation.setOptions({
+     headerShown: true,
+      headerRight: () => (
+        <HeaderButtons HeaderButtonComponent={ButtonHeader}>
+          <Item
+          title="Cart"
+          iconName="cart"
+          color={colors.colorDetailsGreen}
+          onPress={() => {
+            props.navigation.navigate("Cart");
+          }}
+        />
+      </HeaderButtons>
+      )
+        });
+      },[])
+
   const addNumberInBet = useCallback(
     (item: number) => {
       setNumbersBet((numbers) => {
@@ -112,17 +131,17 @@ export const Game = (
       </styles.PageTitle>
       <styles.Text>Choose a game</styles.Text>
       <styles.Button>
-        {games.map((item) => {
-          const isExist = item.type === gameActual?.type;
-          return (
+        <FlatList numColumns={3}  keyExtractor={(item) => item.id.toString()}  data={games} renderItem={(item) => {
+           const isExist = item.item.type === gameActual?.type;
+           return (
             <ButtonChoiceGame
               isAtive={isExist}
-              color={item.color}
-              title={item.type}
+              color={item.item.color}
+              title={item.item.type}
               event={selectGameActual}
             />
           );
-        })}
+        }}/>
       </styles.Button>
       <styles.Description>
         <styles.Text>Fill your bet</styles.Text>

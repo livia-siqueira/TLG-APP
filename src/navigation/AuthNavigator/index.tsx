@@ -35,5 +35,4 @@ const styleHeaderDefault = {
     );
   };
 
- 
-    export default AuthNavigator;
+  export default AuthNavigator;
