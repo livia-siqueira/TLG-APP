@@ -2,7 +2,7 @@ import { ButtonHeader } from "@components";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { AppDispatch, RootNavigationGame, RootState } from "@types";
 import React, { useCallback, useEffect } from "react";
-import { View, FlatList} from "react-native";
+import { View, FlatList, Alert} from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { useDispatch, useSelector } from "react-redux";
 import { ItemCart } from "../../components/ItemCart";
@@ -14,6 +14,9 @@ import { addBetInCartAsync } from "../../store/Cart/thunk";
 import { Card } from "../../components/Card";
 import { removeBetCart } from "../../store/Cart";
 import { getBetAsync } from "../../store/Bet/thunk";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { logoutUser } from "../../store/User";
+
 
 export const Cart = (
   props: NativeStackScreenProps<RootNavigationGame, "Cart">
@@ -37,8 +40,26 @@ export const Cart = (
   }, [])
 
   const addBetInCart = useCallback(async () => {
-   await dispatch(addBetInCartAsync(items))
+    if(cartTotal >= 30) {
+      await dispatch(addBetInCartAsync(items))
+    }
+    else {
+      Alert.alert("Error saving bet", "Bet at least R$30.00 to complete your cart.", [
+        {
+          text: "OK"
+        }
+      ])
+    }
   }, [userLogged, cartUser])
+
+  const handleLogout = async () => {
+    try {
+      await AsyncStorage.removeItem("@token");
+      dispatch(logoutUser());
+    } catch (e: any) {
+      throw new Error(e);
+    }
+  };
 
   useEffect(() => {
     props.navigation.setOptions({
@@ -53,14 +74,21 @@ export const Cart = (
               props.navigation.navigate("Home");
             }}
           />
+          <Item
+            title="Logout"
+            iconName="log-out-outline"
+            color={colors.colorDetailsGreen}
+            onPress={handleLogout}
+          />
         </HeaderButtons>
       ),
     });
   }, []);
   return (
     <Card>
-      <styles.Title>Cart</styles.Title>
+      <styles.Title>CART</styles.Title>
       <styles.Content>
+        {cartUser.length === 0 && <styles.MessageEmpty>Empty cart. Start playing now.</styles.MessageEmpty>}
         <FlatList
           keyExtractor={(item, index) => index.toString()}
           data={cartUser}

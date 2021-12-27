@@ -37,9 +37,13 @@ export const controlBet = createSlice({
             }
             return state;
           },
+        resetBet: (state) => {
+          state.betsPlaced = []
+          state.betsSelected = []
+        }
 
     }
 })
 
-export const {filterGame, setBets} = controlBet.actions;
+export const {filterGame, setBets, resetBet} = controlBet.actions;
 export default controlBet.reducer;

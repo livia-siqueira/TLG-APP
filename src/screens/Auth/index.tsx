@@ -1,67 +1,60 @@
-import React, { useEffect, useCallback, useState } from "react";
-import { Alert, View } from "react-native";
+import React, {useCallback, useState } from "react";
+import { Alert, View} from "react-native";
 import * as styles from "./styles";
-import { MainButton, ButtonForm } from "@components";
+import { ButtonForm, MainButton } from "@components";
 import { AppDispatch, RootState } from "@types";
 import { NavigationStackProp } from "react-navigation-stack";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  creatingUser,loginUserAsync,} from "../../store/User/thunk";
-import { Modal } from "../ModalResetPassword";
+import { useDispatch} from "react-redux";
+import { creatingUser, loginUserAsync } from "../../store/User/thunk";
+import { Modal } from "../../components/ModalResetPassword";
 
 interface iHomeProps {
   navigation: NavigationStackProp<any, any>;
 }
 
 export const AuthScreen = ({ navigation }: iHomeProps) => {
+
   const [modalStatus, setModalStatus] = useState<boolean>(false);
   const dispacth: AppDispatch = useDispatch();
-
-  const handleModalEvent = useCallback(() => {
-    modalStatus ? setModalStatus(false) : setModalStatus(true);
-  }, [setModalStatus, modalStatus]);
-
   const [isLogin, setIsLogin] = useState<boolean>(false);
   const [isRegister, setIsRegister] = useState<boolean>(false);
   const [inputName, setInputName] = useState<string>();
   const [inputEmail, setInputEmail] = useState<string>();
   const [inputPassword, setInputPassword] = useState<string>();
-  const userActual = useSelector((state: RootState) => state.user.userActual);
+
+  const handleModalEvent = useCallback(() => {
+    modalStatus ? setModalStatus(false) : setModalStatus(true);
+  }, [setModalStatus, modalStatus]);
+
   const createUser = async () => {
-    if(inputEmail?.trim() && inputName?.trim() && inputPassword?.trim){
-      
-    try {
-   
-     const resp = await dispacth(
-        creatingUser({
-          name: inputName ? inputName : "",
-          password: inputPassword ? inputPassword : "",
-          email: inputEmail ? inputEmail : "",
-        })
-      );
-      
-      if(resp.meta.requestStatus ===  "rejected"){
+    if (inputEmail?.trim() && inputName?.trim() && inputPassword?.trim) {
+      try {
+        const resp = await dispacth(
+          creatingUser({
+            name: inputName ? inputName : "",
+            password: inputPassword ? inputPassword : "",
+            email: inputEmail ? inputEmail : "",
+          })
+        );
 
+        if (resp.meta.requestStatus === "rejected") {
+          console.log(resp);
+        }
+      } catch (error: any) {
+        console.log(error);
       }
-      
-    } catch (error: any) {
-      console.log(error)
+    } else {
+      return Alert.alert("Failed Register", "Fiels empty", [
+        {
+          text: "Ok",
+        },
+      ]);
     }
-  }else{
-    Alert.alert("Failed Register", "Fiels empty", [
-      {
-        text: "Ok",
-        onPress: BackToDefault
-      }
-    ])
-  }
   };
-
-  
 
   const login = async () => {
     try {
-      const resp =await dispacth(
+      const resp = await dispacth(
         loginUserAsync({
           password: inputPassword ? inputPassword : "",
           email: inputEmail ? inputEmail : "",
@@ -69,12 +62,26 @@ export const AuthScreen = ({ navigation }: iHomeProps) => {
       );
       if (resp.payload) {
         resetFields();
-
-        navigation.navigate("App")
+      } else {
+        if (!inputEmail?.trim() || !inputPassword?.trim()) {
+          return Alert.alert("Failed Login", "Fiels empty", [
+            {
+              text: "Ok",
+            },
+          ]);
+        }
+        return Alert.alert(
+          "Failed Login",
+          "User does not exist. Please register on our system and start betting!",
+          [
+            {
+              text: "Ok",
+            },
+          ]
+        );
       }
-      console.log("usuário nao existe");
     } catch (error: any) {
-      console.log("erro credenciais");
+      throw new Error(error);
     }
   };
 
@@ -115,19 +122,18 @@ export const AuthScreen = ({ navigation }: iHomeProps) => {
             </styles.Title>
             <styles.ContainerButton>
               <MainButton
-                changeFormForLogin={() => setIsLogin(false)}
-                changeFormForRegister={() => setIsRegister(true)}
-                title="Sign Up"
-              />
-              <MainButton
                 changeFormForLogin={() => setIsLogin(true)}
                 changeFormForRegister={() => setIsRegister(false)}
                 title="Log In"
               />
+              <MainButton
+                changeFormForLogin={() => setIsLogin(false)}
+                changeFormForRegister={() => setIsRegister(true)}
+                title="Sign Up"
+              />
             </styles.ContainerButton>
           </View>
         )}
-
         {isLogin ? (
           <View>
             <View style={{ opacity: modalStatus ? 0.2 : 1 }}>
@@ -162,9 +168,9 @@ export const AuthScreen = ({ navigation }: iHomeProps) => {
         ) : (
           isRegister && (
             <View>
-              <styles.TitleForm>Register</styles.TitleForm>
+              <styles.TitleForm>Registration</styles.TitleForm>
               <styles.ContainerForm style={{ height: 400 }}>
-                <View>
+                <styles.ContainerInput>
                   <styles.Input
                     placeholder="Name"
                     value={inputName}
@@ -184,13 +190,18 @@ export const AuthScreen = ({ navigation }: iHomeProps) => {
                   <styles.ContainerButton>
                     <ButtonForm title="Register" eventClick={createUser} />
                   </styles.ContainerButton>
-                </View>
+                </styles.ContainerInput>
               </styles.ContainerForm>
-              <ButtonForm title="Back" eventClick={BackToDefault} />
+              <styles.ContainerButton>
+                <ButtonForm title="Back" eventClick={BackToDefault} />
+              </styles.ContainerButton>
             </View>
           )
         )}
       </styles.Content>
+      <styles.Footer>
+        <styles.FooterText>@Copyright 2021 Luby Software</styles.FooterText>
+      </styles.Footer>
     </styles.Container>
   );
 };

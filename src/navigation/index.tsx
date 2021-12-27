@@ -25,19 +25,21 @@ const Routes: React.FC = () => {
     }
   }, []);
 
+
+  console.log(hasUserLogged);
+
   
 
   const loadUser = useCallback(async () => {
     try {
       const token = await AsyncStorage.getItem("@token");
-      console.log(token)
       if (token) {
         await dispatch(getUserAsync(token));
       }
     } catch (e: any) {
       console.log(e);
     }
-  }, []);
+  }, [hasUserLogged]);
 
 
   useEffect(() => {

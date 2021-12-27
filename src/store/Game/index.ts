@@ -28,7 +28,6 @@ const controlGame = createSlice({
     extraReducers: (builder) => {
         builder.addCase(gamesLoads.fulfilled, (state, action) =>{
             for(let i = 0; i< action.payload.types.length; i++){
-                console.log(state.games.find((ga) => ga.id === action.payload.types[i].id))
                 const hasGame = state.games.find((ga) => ga.id === action.payload.types[i].id);
                 if(!hasGame){
                     state.games.push(action.payload.types[i])

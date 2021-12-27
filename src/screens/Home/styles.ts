@@ -1,24 +1,25 @@
 import styled from "styled-components/native";
 import { colors } from "../../shared/constants/colors";
 
-
 export const Container = styled.View`
-    marginVertical: 30px;
-    marginHorizontal: 20px;
-    width: 90%;
-    marginBottom: 180px;
-`
+  margin-vertical: 30px;
+  margin-horizontal: 20px;
+  width: 90%;
+  margin-bottom: 180px;
+`;
 
 export const Buttons = styled.View`
-    flexDirection: row;
-    alignItems: center;
-    justifyContent: center;
-`
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
 
 export const Title = styled.Text`
-    fontFamily: 'Roboto-BoldItalic';
-    fontSize: 22px;
-    color: ${colors.colorTextTitle};
-    textAlign: left;
-    marginVertical: 20px;
-`
+  font-family: "Roboto-BoldItalic";
+  font-size: 22px;
+  color: ${colors.colorTextTitle};
+  text-align: left;
+  margin-vertical: 20px;
+`;
+
+export const MessageEmpty = styled.Text``;

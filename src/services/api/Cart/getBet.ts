@@ -4,7 +4,6 @@ import { api } from "..";
 export const getBet = async (types: string[]) => {
   try {
     let urlBet = `bet/all-bets`;
-    console.log(types);
     types.forEach((item, index) => {
       if (index === 0) {
         urlBet += `?type%5B%5D=${item}`;

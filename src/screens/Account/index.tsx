@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react'
-import {Text} from 'react-native'
+import {Alert, Text} from 'react-native'
 import {Ionicons} from '@expo/vector-icons';
 import * as styles from './styles'
 import { Card } from '../../components/Card';
@@ -29,8 +29,15 @@ export const Account : React.FC = () => {
         setInputEmail(text)
     }
 
-    const updateUser = useCallback(() => {
-        dispatch(updateUserAsync({email: inputEmail ? inputEmail : '', name: inputName ? inputName : ''}))
+    const updateUser = useCallback(async () => {
+        const a = await dispatch(updateUserAsync({email: inputEmail ? inputEmail : '', name: inputName ? inputName : ''}))
+        if(a.meta.requestStatus === "fulfilled"){
+            return Alert.alert("Sucess!", "Changes made successfully.")
+        }
+        else{
+            return Alert.alert("Err!", "There was a problem, please try again. Correct format for email: [xx...]@[xxxx...].[xxx]")
+        }
+       
     }, [dispatch, inputName, inputPassword, inputEmail])
 
 
@@ -49,7 +56,7 @@ export const Account : React.FC = () => {
         </styles.ContainerImage>
         <styles.Title>{userActual ? userActual.name : ''}</styles.Title>
         <styles.Input placeholder='Name' editable={stateInputs} value={inputName} onChangeText={changeTextInputName}/>
-        <styles.Input autoCompleteType="password" editable={stateInputs} placeholder='Email' value={userActual ? userActual.email : inputName} onChangeText={changeTextInputEmail}/>
+        <styles.Input  editable={stateInputs} placeholder='Email' value={inputEmail} onChangeText={changeTextInputEmail}/>
         <styles.Button onPress={updateUser}>
             <styles.TextButton>Save</styles.TextButton>
         </styles.Button>

@@ -15,12 +15,14 @@ const controlUser = createSlice({
             state.users.push(action.payload)
             return state;
         },
-        loginUser: (state, action:PayloadAction<{id: number}>) => {
-            const hasUser = state.users.find(user => user.id === action.payload.id);
-            console.log(hasUser)
-            if(hasUser) {
-                state.userActual = hasUser;
+        loginUser: (state, action:PayloadAction<{user: User}>) => {
+            console.log(action.payload.user)
+            const hasUser = state.users.find(user => user.id === action.payload.user.id);
+            if(!hasUser) {
+                state.users.push(action.payload.user)
             }
+            console.log(action.payload.user)
+            state.userActual = action.payload.user;
             return state;
         },
         addBetInUser: (state, action:PayloadAction<Bet>) => {

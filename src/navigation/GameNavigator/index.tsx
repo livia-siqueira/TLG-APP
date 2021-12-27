@@ -5,15 +5,12 @@ import { colors } from "../../shared/constants/colors";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Game } from "../../screens/Game";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { StyleSheet, View, Text, GestureResponderEvent } from "react-native";
+import { StyleSheet, View, Text} from "react-native";
 import { Cart } from "../../screens";
 import { Account } from "../../screens/Account";
 import { NewGame } from "../../screens/NewGame";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@types";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { HeaderButtons, Item } from "react-navigation-header-buttons";
-import { ButtonHeader } from "@components";
 import { logoutUser } from "../../store/User";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -44,7 +41,7 @@ export const AppNavigator = () => {
       dispatch(logoutUser());
     } catch (e: any) {
       console.log(e);
-    }
+    } 
   };
 
   return (
@@ -62,13 +59,9 @@ export const AppNavigator = () => {
         },
         tabBarStyle: {
           position: "absolute",
-          bottom: 2,
-          left: 10,
-          right: 10,
           elevation: 3,
           backgroundColor: colors.colorWhite,
-          borderRadius: 15,
-          height: 60,
+          height: 55,
         },
         tabBarShowLabel: false,
       }}
@@ -106,40 +99,6 @@ export const AppNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Post"
-        component={Home}
-        options={() => ({
-          tabBarIcon: ({ color }) => (
-            <Ionicons
-              name="log-out-outline"
-              size={25}
-              color={colors.colorFooterCart}
-            />
-          ),
-          tabBarOnPress: handleLogout,
-          tabBarButton: (props) => (
-            <TouchableOpacity
-              style={{
-                top: -10,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <View
-                style={{
-                  width: 60,
-                  height: 60,
-                  borderRadius: 90,
-                  backgroundColor: colors.colorDetailsGreen,
-                }}
-              >
-                {props.children}
-              </View>
-            </TouchableOpacity>
-          ),
-        })}
-      />
-      <Tab.Screen
         component={GameNavigator}
         name="New Bet"
         options={{
@@ -156,7 +115,7 @@ export const AppNavigator = () => {
           headerShown: false,
         }}
       />
-      {hasAdmin === 1 ? (
+      {hasAdmin === 1 && (
         <Tab.Screen
           component={NewGame}
           name="Add Game"
@@ -169,23 +128,6 @@ export const AppNavigator = () => {
                   color={colors.colorDetailsGreen}
                 />
                 <Text style={styles.text}>New Game</Text>
-              </View>
-            ),
-          }}
-        />
-      ) : (
-        <Tab.Screen
-          component={NewGame}
-          name="Add Game"
-          options={{
-            tabBarIcon: ({ focused, color, size }) => (
-              <View style={styles.iconTabRound}>
-                <Ionicons
-                  name="list"
-                  size={25}
-                  color={colors.colorDetailsGreen}
-                />
-                <Text style={styles.text}>All games</Text>
               </View>
             ),
           }}

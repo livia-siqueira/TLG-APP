@@ -12,7 +12,7 @@ export const ButtonForm = ({ title, eventClick }: Button) => {
   return (
     <styles.Button activeOpacity={0.6} onPress={eventClick ? eventClick : () => {}}>
       {title === "Back" ? (
-          <styles.TextButton style={{ color: colors.colorTextTitle }}>
+          <styles.TextButton style={{ color: colors.colorTextTitle}} >
             <AntDesign
               name="arrowleft"
               size={24}

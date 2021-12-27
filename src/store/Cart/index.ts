@@ -1,6 +1,7 @@
 import { sameValues } from "@helpers";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Bet } from "@types";
+import { Alert } from "react-native";
 
 interface state {
   bets: Bet[];
@@ -17,8 +18,6 @@ export const controlCart = createSlice({
   initialState,
   reducers: {
     addBetCart: (state, action: PayloadAction<Bet>) => {
-    
-
       if (state.bets.length === 0) {
         state.bets.push(action.payload);
       }
@@ -30,6 +29,13 @@ export const controlCart = createSlice({
       });
       if (betExist.length === 0) {
         state.bets.push(action.payload);
+      }
+      else{
+        Alert.alert("Err", "You've already made this bet!", [
+          {
+            text: "OK"
+          }
+        ])
       }
       state.totalCart += action.payload.price;
       return state;
@@ -45,9 +51,7 @@ export const controlCart = createSlice({
         })
 
         state.bets = newBets;
-       
-        console.log(betIndex);
-       return state;
+              return state;
 
     },
   },

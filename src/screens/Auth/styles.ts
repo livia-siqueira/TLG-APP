@@ -1,69 +1,67 @@
+import { Dimensions } from "react-native";
 import styled from "styled-components/native";
 import { colors } from "../../shared/constants/colors";
 
-export const Container = styled.View`
+export const Container = styled.ScrollView`
   width: 100%;
-  height: 100%;
+  height: ${Dimensions.get("screen").height / 2}px;
 `;
-
-
 
 export const TextButton = styled.Text`
-    color: ${colors.colorWhite};
-`
-
-export const Title = styled.Text`
-  font-size: 50px;
-  color: ${colors.colorTextTitle};
-  text-align: center;
-  line-height: 82px;
-  font-family: "Roboto-BoldItalic";
-`;
-
-export const TitleDiferent = styled.View`
-  background-color: ${colors.colorDetailsGreen};
   color: ${colors.colorWhite};
-  border-radius: 70px;
-  padding-horizontal: 20px;
 `;
 
 export const ContainerTitleForm = styled.View`
-    fontSize: 20px;
-`
+  font-size: 5%;
+`;
 
 export const TitleForm = styled.Text`
-    textAlign: center;
-    fontSize: 28px;
-    color: ${colors.colorTextTitle};
-    fontFamily: 'Roboto-BoldItalic';
-    marginVertical: 20px;
-`
+  text-align: center;
+  font-size: 28px;
+  color: ${colors.colorTextTitle};
+  font-family: "Roboto-BoldItalic";
+  margin-vertical: 20px;
+`;
 
 export const ContainerButton = styled.View`
-  marginVertical: 30px;
-  width: 380px;
+  width: 100%;
+  margin-vertical: 30px;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const TextPassword = styled.TouchableOpacity`
-  margin: 20px;`
+  margin: 20px;
+`;
 
 export const Text = styled.Text`
-  font-size: 18px;
+  font-size: 16px;
   color: ${colors.colorText};
-  font-family: 'Roboto-ThinItalic';
+  font-family: "Roboto-ThinItalic";
   text-align: right;
-`
-export const TextSpecial = styled.Text`
-  font-size: 50px;
-  color: ${colors.colorWhite};
-  font-family: "Roboto-BoldItalic";
 `;
 
 export const Content = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
-  background-color: ${colors.colorPrimary};
+  margin-top: 90px;
+`;
+
+export const Footer = styled.View`
+  width: 100%;
+  margin-top: 35%;
+  height: 50px;
+  border-top-width: 1px;
+  border-top-color: ${colors.colorBorderCart};
+  border-bottom-width: 0;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const FooterText = styled.Text`
+  color: ${colors.colorTextTitle};
+  text-align: center;
 `;
 
 export const ContainerForm = styled.View`
@@ -72,18 +70,39 @@ export const ContainerForm = styled.View`
   background-color: ${colors.colorWhite};
   border-radius: 20px;
   border: 1px solid ${colors.colorBorderForm};
-  height: 60%;
-  width: 380px;
+  height: 70%;
+  width: 300px;
 `;
 
 export const ContainerInput = styled.View`
-`
+  width: 100%;
+`;
 
 export const Input = styled.TextInput`
-    width: 380px;
-    padding: 12px;
-    font-size: 20px;
-    height: 70px;
-    border-bottom-color: ${colors.colorBorderBottomHeader};
-    border-bottom-width: 1px;
-`
+  width: 100%;
+  padding: 12px;
+  font-size: 20px;
+  height: 70px;
+  border-bottom-color: ${colors.colorBorderBottomHeader};
+  border-bottom-width: 1px;
+`;
+
+export const Title = styled.Text`
+  font-size: 50px;
+  color: ${colors.colorTextTitle};
+  text-align: center;
+  font-family: "Roboto-BoldItalic";
+`;
+
+export const TitleDiferent = styled.View`
+  background-color: ${colors.colorDetailsGreen};
+  color: ${colors.colorWhite};
+  border-radius: 70px;
+  padding-horizontal: 10px;
+`;
+
+export const TextSpecial = styled.Text`
+  font-size: 50px;
+  color: ${colors.colorWhite};
+  font-family: "Roboto-BoldItalic";
+`;

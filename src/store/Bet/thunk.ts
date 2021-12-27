@@ -11,9 +11,8 @@ export const getBetAsync = createAsyncThunk<void, string[], {
 }>(
     'bet/getBets',
     async(types, thunkAPI) => {
-        console.log(types)
         const data = await getBet(types);
-        console.log(data)
         thunkAPI.dispatch(setBets(data));
+        console.log(data);
     }
 )

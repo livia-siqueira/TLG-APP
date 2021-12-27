@@ -1,6 +1,6 @@
 import React from "react";
 import * as styles from "./styles";
-import { FlatList } from "react-native";
+import { Alert, FlatList } from "react-native";
 import { AppDispatch, RootNavigationGame, RootState } from "@types";
 import { changeGameSelected } from "../../store/Game";
 import {
@@ -58,6 +58,15 @@ export const Game = (
   const addNumberInBet = useCallback(
     (item: number) => {
       setNumbersBet((numbers) => {
+        const maxNumber = gameActual?.max_number;
+        if(maxNumber === numbers.length){
+          Alert.alert("Err!!", "Numbers are enough for betting", [
+            {
+              text: 'OK'
+            }
+          ])
+          return numbers;
+        }
         const exist = numbers?.includes(item);
         if (!exist) {
           return [...numbers, item];
@@ -85,6 +94,7 @@ export const Game = (
     });
   }, [gameActual]);
 
+
   const removeNumberInBet = useCallback(
     (item: number) => {
       setNumbersBet((numbers) => {
@@ -99,17 +109,27 @@ export const Game = (
   };
 
   
-
   const addBetInCart = useCallback(() => {
-    dispatch(
-      addBetCart({
-        choosen_numbers: sortNumber(numbersBet),
-        user_id: user ? user?.id : 0,
-        game_id: gameActual ? gameActual?.id : 0,
-        price: gameActual ? gameActual.price : 0,
-        created_at: new Date().toString()
-      })
-    );
+
+    if(numbersBet.length === gameActual?.max_number){
+      dispatch(
+        addBetCart({
+          choosen_numbers: sortNumber(numbersBet),
+          user_id: user ? user?.id : 0,
+          game_id: gameActual ? gameActual?.id : 0,
+          price: gameActual ? gameActual.price : 0,
+          created_at: new Date().toString()
+        })
+      );
+    }
+    else{
+      return Alert.alert('Err', "Please choose the correct amount of numbers to bet.", [
+        {
+          text: "OK"
+        }
+      ])
+    }
+  
     resetGame();
   }, [numbersBet, gameActual]);
   

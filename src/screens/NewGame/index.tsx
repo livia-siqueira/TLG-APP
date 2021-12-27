@@ -6,7 +6,6 @@ import * as styles from "./styles"
 
 
 export const NewGame : React.FC = () => {
-    const hasAdmin = useSelector((state: RootState) => state.user.userActual);
     return (
         <Card>
             <styles.Input placeholder="Name"/>

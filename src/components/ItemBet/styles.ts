@@ -5,11 +5,11 @@ interface propsContainerItemList {
 }
 
 export const Container = styled.View<propsContainerItemList>`
-  borderLeftWidth: 4px;
-  borderRadius: 4px;
-  borderLeftColor: ${(props) => props.color};
-  marginHorizontal: 20px;
-  marginVertical: 10px;
+  border-left-width: 4px;
+  border-radius: 4px;
+  border-left-color: ${(props) => props.color};
+  margin-horizontal: 20px;
+  margin-vertical: 10px;
   height: 90px;
 `;
 
@@ -17,41 +17,41 @@ export const Section = styled.View``;
 
 export const Numbers = styled.Text<propsContainerItemList>`
   color: ${colors.colorTextTitle};
-  fontFamily: 'Roboto-BoldItalic';
-  fontSize: 18px;
+  font-family: 'Roboto-BoldItalic';
+  font-size: 18px;
 
 `;
 
 export const Type = styled.Text<propsContainerItemList>`
 color: ${props => props.color};
-fontSize: 20px;
-fontFamily: 'Roboto-BoldItalic';
+font-size: 20px;
+font-family: 'Roboto-BoldItalic';
 
 `
 
 export const ContentBet = styled.View`
-  flexDirection: row;
-  marginVertical: 10px;
+  flex-direction: row;
+  margin-vertical: 10px;
 
 `;
 
 export const Price = styled.Text`
   color: ${colors.colorText};
-  fontSize: 15px;
-  fontFamily: 'Roboto-ThinItalic';
-  marginHorizontal: 10px;
+  font-size: 15px;
+  font-family: 'Roboto-ThinItalic';
+  margin-horizontal: 10px;
 `;
 
 export const Data = styled.Text`
   color: ${colors.colorText};
-  fontSize: 15px;
-  fontFamily: 'Roboto-ThinItalic';
+  font-size: 15px;
+  font-family: 'Roboto-ThinItalic';
 `;
 
 export const AreaAction = styled.View``;
 
 export const Main = styled.View`
-  marginVertical: 10px;
-  marginHorizontal: 10px;
+  margin-vertical: 10px;
+  margin-horizontal: 10px;
 
 `;

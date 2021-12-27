@@ -8,7 +8,6 @@ import { changePassword } from "./changePassword";
 export const resetPassword = async(body: {email: string}) => {
     try{
         const data = await api.post("reset", body)
-        console.log(data)
         if(data.data){
             const token = data.data.token
         }

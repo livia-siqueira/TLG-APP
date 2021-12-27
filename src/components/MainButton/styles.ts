@@ -1,18 +1,20 @@
+import { Dimensions } from "react-native";
 import styled from "styled-components/native";
 import { colors } from "../../shared/constants/colors";
 
 export const Button = styled.View`
-        backgroundColor: ${colors.colorDetailsGreen};
-        paddingVertical: 12px;
-        paddingHorizontal: 30px;
-        borderRadius: 25px;
-        marginVertical: 15px;
-        alignItems: center;
+        background-color: ${colors.colorDetailsGreen};
+        padding-vertical: 12px;
+        padding-horizontal: 30px;
+        border-radius: 25px;
+        margin-vertical: 10px;
+        align-items: center;
         color: ${colors.colorWhite};
+        width: ${Dimensions.get('screen').width/2};
 `;
 
 export const TextButton = styled.Text`
     color: ${colors.colorWhite};
-    fontSize: 20px;
-    fontFamily: 'Roboto-Bold';
+    font-size: 20px;
+    font-family: 'Roboto-Bold';
 `
