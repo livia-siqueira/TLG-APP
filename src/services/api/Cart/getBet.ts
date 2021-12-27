@@ -1,4 +1,4 @@
-import { BetApi } from "../../../shared/helpers/types/API";
+import { BetAPI } from "@shared";
 import { api } from "..";
 
 export const getBet = async (types: string[]) => {
@@ -12,10 +12,10 @@ export const getBet = async (types: string[]) => {
       }
     });
     const data = await api.get(urlBet);
-    const bets: BetApi[] = data.data;
+    const bets: BetAPI[] = data.data;
     const newData = [...bets];
 
-    newData.sort((a: BetApi, b: BetApi) => {
+    newData.sort((a: BetAPI, b: BetAPI) => {
       const dateOne = new Date(a.created_at).getTime();
       const dateTwo = new Date(b.created_at).getTime();
       return dateTwo - dateOne;

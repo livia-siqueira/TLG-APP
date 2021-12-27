@@ -1,19 +1,17 @@
-import React, {useCallback, useState } from "react";
-import { Alert, View} from "react-native";
+import React from "react";
+import { Alert, View } from "react-native";
 import * as styles from "./styles";
-import { ButtonForm, MainButton } from "@components";
-import { AppDispatch } from "../../shared/helpers/types/Game";
+import { ButtonForm, MainButton, ModalResetPassword } from "@components";
+import { AppDispatch, useCallback, useState } from "@shared";
 import { NavigationStackProp } from "react-navigation-stack";
-import { useDispatch} from "react-redux";
-import { creatingUser, loginUserAsync } from "../../store/User/thunk";
-import { Modal } from "../../components/ModalResetPassword";
+import { useDispatch } from "react-redux";
+import { creatingUser, loginUserAsync } from "../../store/Slices/User/thunk";
 
 interface iHomeProps {
   navigation: NavigationStackProp<any, any>;
 }
 
 export const AuthScreen = ({ navigation }: iHomeProps) => {
-
   const [modalStatus, setModalStatus] = useState<boolean>(false);
   const dispacth: AppDispatch = useDispatch();
   const [isLogin, setIsLogin] = useState<boolean>(false);
@@ -27,7 +25,7 @@ export const AuthScreen = ({ navigation }: iHomeProps) => {
   }, [setModalStatus, modalStatus]);
 
   const createUser = async () => {
-    if (inputEmail?.trim() && inputName?.trim() && inputPassword?.trim) {
+    if (inputEmail?.trim() || inputName?.trim() || inputPassword?.trim) {
       try {
         const resp = await dispacth(
           creatingUser({
@@ -38,7 +36,26 @@ export const AuthScreen = ({ navigation }: iHomeProps) => {
         );
 
         if (resp.meta.requestStatus === "rejected") {
-          console.log(resp);
+          return Alert.alert(
+            "Failed Register",
+            "There was a problem, please try again. Correct format for email: [xx...]@[xxxx...].[xxx]",
+            [
+              {
+                text: "Ok",
+              },
+            ]
+          );
+        }
+        else{
+          return Alert.alert(
+            "Succes",
+            "User saved successfully",
+            [
+              {
+                text: "Ok",
+              },
+            ]
+          );
         }
       } catch (error: any) {
         console.log(error);
@@ -147,6 +164,7 @@ export const AuthScreen = ({ navigation }: iHomeProps) => {
                   />
                   <styles.Input
                     autoCompleteType="password"
+                    secureTextEntry={true}
                     placeholder="Password"
                     value={inputPassword}
                     onChangeText={changeTextPassword}
@@ -163,7 +181,9 @@ export const AuthScreen = ({ navigation }: iHomeProps) => {
                 <ButtonForm title="Back" eventClick={BackToDefault} />
               </styles.ContainerButton>
             </View>
-            {modalStatus && <Modal eventBackPage={handleModalEvent} />}
+            {modalStatus && (
+              <ModalResetPassword eventBackPage={handleModalEvent} />
+            )}
           </View>
         ) : (
           isRegister && (
@@ -183,6 +203,7 @@ export const AuthScreen = ({ navigation }: iHomeProps) => {
                   />
                   <styles.Input
                     placeholder="Password"
+                    secureTextEntry={true}
                     value={inputPassword}
                     onChangeText={changeTextPassword}
                     autoCompleteType="password"

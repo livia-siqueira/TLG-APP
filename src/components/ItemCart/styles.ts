@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import { colors } from "../../shared/constants/colors";
+import { colors } from "@shared";
 
 export const Container = styled.View<{ color: string }>`
   border-left-width: 4px;

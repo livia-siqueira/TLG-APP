@@ -9,7 +9,7 @@ interface modal {
     eventBackPage() : void;
 }
 
-export const Modal = (props: modal) => {
+export const ModalResetPassword = (props: modal) => {
     const [inputEmail, setInputEmail] = useState<string>();
     const [inputPassword, setInputPassword] = useState<string>();
     const [hasUser, setHasUser] = useState<boolean>(false);
@@ -17,9 +17,24 @@ export const Modal = (props: modal) => {
 
     const resetPass = useCallback(async() => {
         const resp =  await resetPassword({email: inputEmail ? inputEmail : ''})
-        console.log(inputEmail);
         if(resp?.data) {
           setHasUser(true);
+        }
+        else{
+            if(!inputEmail?.trim()) {
+                return  Alert.alert("Err", "Field is empty", [
+                    {
+                        text: 'Ok',
+                    }
+                ])
+            }
+
+            Alert.alert("Err", "User does not exist", [
+                {
+                    text: 'Ok',
+                    onPress: props.eventBackPage
+                }
+            ])
         }
      if(inputPassword) {
          const respChange = await changePassword({token: resp?.data.token, newPassword: { password: inputPassword ? inputPassword : ''}})

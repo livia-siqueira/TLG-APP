@@ -1,4 +1,4 @@
-import { formatNumber } from "../../shared/helpers/index";
+import { formatNumber } from "@shared";
 import React from "react";
 import { Text, View } from "react-native";
 import * as styles from "./styles";
@@ -23,7 +23,7 @@ export const ItemCart = (props: cart) => {
           <styles.Numbers>{props.numbers.join(",")}</styles.Numbers>
           <styles.Details>
             <styles.Title color={props.color ? props.color : "white"}>{props.type}</styles.Title>
-            <styles.Price>{formatNumber(props.price)}</styles.Price>
+            <styles.Price>{formatNumber(props.price).replace(".", ",")}</styles.Price>
           </styles.Details>
         </styles.Content>
       </styles.Container>

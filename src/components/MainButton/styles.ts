@@ -1,6 +1,6 @@
 import { Dimensions } from "react-native";
 import styled from "styled-components/native";
-import { colors } from "../../shared/constants/colors";
+import { colors } from "@shared";
 
 export const Button = styled.View`
         background-color: ${colors.colorDetailsGreen};

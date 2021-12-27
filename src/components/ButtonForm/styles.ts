@@ -1,9 +1,10 @@
+import { Dimensions } from "react-native";
 import styled from "styled-components/native";
 
-import { colors } from "../../shared/constants/colors";
+import { colors } from "../../shared/constants";
 
 export const Button = styled.TouchableOpacity`
-      width: 100%;
+      width: ${Dimensions.get('window').width}px;
       justify-content: center;
       align-items: center;
 `;

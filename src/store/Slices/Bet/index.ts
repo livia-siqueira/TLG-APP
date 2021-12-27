@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { BetApi, CartAPI } from "../../shared/helpers/types/API";
+import { BetAPI, CartAPI } from "@shared";
 
 interface AddBetInReducer {
-    betsPlaced: BetApi[],
+    betsPlaced: BetAPI[],
     totalCart: number,
     data: string,
     betsSelected: string[]
@@ -16,12 +16,13 @@ const initialState : AddBetInReducer= {
 }
 
 
-export const controlBet = createSlice({
+const controlBet = createSlice({
     name: 'bet',
     initialState,
     reducers: {
-        setBets: (state, action: PayloadAction<BetApi[]>) => {
+        setBets: (state, action: PayloadAction<BetAPI[]>) => {
             state.betsPlaced = action.payload;
+            return state;
         },
         filterGame(state, action: PayloadAction<{ game: string }>) {
             const existingGame = state.betsSelected?.find(

@@ -13,7 +13,8 @@ module.exports = function(api) {
             "@helpers": "./src/shared/utils",
             "@screens": "./src/screens/",
             "@functions": "./src/shared/utils/function",
-            "@hooks": "./src/shared/utils/hooks"
+            "@hooks": "./src/shared/utils/hooks",
+            "@shared": "./src/shared"
           }
         }
       ],

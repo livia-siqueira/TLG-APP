@@ -1,4 +1,4 @@
-import { formatNumber } from "../../shared/helpers";
+import { formatNumber } from "@shared";
 import React from "react";
 import { View } from "react-native";
 import * as styles from "./styles";
@@ -28,7 +28,7 @@ export const ItemBet = (props: AddToCartData) => {
               <styles.Data>
                 {day}/{month}/{year}
               </styles.Data>
-              <styles.Price>({formatNumber(props.price)})</styles.Price>
+              <styles.Price>({formatNumber(props.price).replace('.', ',')})</styles.Price>
             </styles.ContentBet>
           </styles.Section>
           <styles.Type color={props.color}>

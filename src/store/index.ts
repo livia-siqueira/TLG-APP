@@ -1,10 +1,8 @@
-import { createStore } from "redux";
 import { configureStore } from "@reduxjs/toolkit";
-import controlGame from './Game/index'
-import controlUser from './User/index'
-import controlCart  from "./Cart";
-import controlBet  from "./Bet";
-
+import controlGame from './Slices/Game';
+import controlUser from './Slices/User';
+import controlBet from './Slices/Bet';
+import controlCart from './Slices/Cart';
 const store = configureStore({
     reducer: {
         game: controlGame,

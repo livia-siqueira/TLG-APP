@@ -1,16 +1,10 @@
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
-import { Home } from "../../screens/Home";
-import { colors } from "../../shared/constants/colors";
+import { Home, Cart, Game, Account, NewGame } from "@screens";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Game } from "../../screens/Game";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StyleSheet, View, Text} from "react-native";
-import { Cart } from "../../screens";
-import { Account } from "../../screens/Account";
-import { NewGame } from "../../screens/NewGame";
-import { useSelector } from "react-redux";
-import { RootState } from "../../shared/helpers/types/Game";
+import { RootState, useSelector, colors } from "@shared";
 
 const Tab = createBottomTabNavigator();
 const GameStack = createNativeStackNavigator();

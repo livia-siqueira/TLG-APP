@@ -1,8 +1,9 @@
 import styled from "styled-components/native";
-import { colors } from "../../shared/constants/colors";
+import { colors } from "@shared";
+import { Dimensions } from "react-native";
 
 export const Container = styled.View`
-  width: 100%;
+  width: ${Dimensions.get('window').width}px;
   margin-vertical: 10px;
   margin-horizontal: 20px;
   flex: 1;
@@ -32,7 +33,7 @@ export const Button = styled.View`
 
 export const Game = styled.View`
   margin-vertical: 10px;
-  width: 100%;
+  width: ${Dimensions.get('window').width}px;
   flex: 1;
 `;
 export const ButtonLeft = styled.View`
@@ -40,11 +41,11 @@ export const ButtonLeft = styled.View`
 `;
 
 export const Description = styled.View`
-  width: 100%;
+  width: ${Dimensions.get('window').width}px;
   margin-vertical: 10px;
 `;
 export const ContainerDescription = styled.View`
-  width: 80%;
+  width: 380px;
 `;
 export const Text = styled.Text`
     text-align: left;
@@ -55,11 +56,11 @@ export const Text = styled.Text`
 export const TextDescription = styled.Text`
     font-family: 'Roboto-ThinItalic'
     text-align: justify;
-    font-size: 18;
+    font-size: 18px;
 `;
 
 export const ContainerGame = styled.View`
-  width: 100%;
+  width:  ${Dimensions.get('window').width}px;
   flex: 1;
 `;
 

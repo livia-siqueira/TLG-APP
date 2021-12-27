@@ -1,7 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { AppDispatch, RootState } from "../../shared/helpers/types/Game";
-import {CartAPI} from '../../shared/helpers/types/API';
-import { methodCreateBetAPI } from "../../services/api/Cart/addBetInCart";
+import {AppDispatch, RootState ,CartAPI} from '@shared';
+import { methodCreateBetAPI } from "../../../services/api/Cart/addBetInCart";
 
 
 export const addBetInCartAsync = createAsyncThunk<

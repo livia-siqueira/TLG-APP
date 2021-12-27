@@ -1,8 +1,5 @@
 import { api } from "..";
 
-
-
-
 const updateAccount = async (body: { email: string; name: string }) => {
   try {
     await api.put("/user/update", body);

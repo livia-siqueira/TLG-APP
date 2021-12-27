@@ -1,12 +1,11 @@
-import React, { useCallback, useState } from "react";
-import { Alert, Text } from "react-native";
+import React from "react";
+import { Alert } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import * as styles from "./styles";
-import { Card } from "../../components/Card";
-import { AppDispatch, RootState } from "../../shared/helpers/types/Game";
-import { useDispatch, useSelector } from "react-redux";
-import { updateUserAsync } from "../../store/User/thunk";
-import { colors } from "../../shared/constants/colors";
+import { Card } from "@components";
+import { useDispatch, useSelector, useCallback, useState } from "@shared";
+import { updateUserAsync } from "../../store/Slices/User/thunk";
+import {colors, AppDispatch, RootState} from "@shared";
 
 export const Account: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -57,7 +56,7 @@ export const Account: React.FC = () => {
       <styles.ContainerImage>
         <Ionicons name="person-circle-outline" size={60} />
       </styles.ContainerImage>
-      <styles.Title>{userActual ? userActual.name : ""}</styles.Title>
+      <styles.Title>{inputName}</styles.Title>
       <styles.Input
         placeholder="Name"
         editable={stateInputs}

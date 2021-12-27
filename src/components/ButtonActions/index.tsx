@@ -22,13 +22,13 @@ export const ButtonAction = (props: propsButtonAction) => {
           {props.title === "Add to cart" ? (
             <styles.TextIcon>
               <Text>
-                <Ionicons name="cart-outline" color={"white"} size={18} />
+                <Ionicons name="cart-outline" color={"white"} size={15}/>
               </Text>
             </styles.TextIcon>
           ) : (
             ""
           )}
-          {props.title}
+          <Text>{props.title}</Text>
         </styles.TextButton>
       </styles.Content>
     </styles.Container>

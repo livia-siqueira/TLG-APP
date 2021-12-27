@@ -1,7 +1,4 @@
-import { RootState } from "../../shared/helpers/types/Game";
 import React from "react";
-import {TouchableOpacity, View, Text} from 'react-native';
-import { useSelector } from "react-redux";
 import * as styles from './styles'
 
 interface propsButton {

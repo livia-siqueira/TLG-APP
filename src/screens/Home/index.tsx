@@ -1,18 +1,22 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React, { useCallback, useEffect } from "react";
-import { FlatList } from "react-native-gesture-handler";
+import React from "react";
+import { FlatList } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { useDispatch, useSelector } from "react-redux";
-import { ButtonChoiceGame } from "../../components/ButtonChoiceGame";
-import { ButtonHeader } from "../../components/ButtonHeader";
-import { ItemBet } from "../../components/ItemBet";
-import { colors } from "../../shared/constants/colors";
-import { AppDispatch, RootNavigationGame, RootState } from "../../shared/helpers/types/Game";
-import { filterGame, resetBet } from "../../store/Bet";
-import { getBetAsync } from "../../store/Bet/thunk";
+import { ButtonChoiceGame, ButtonHeader, ItemBet } from "@components";
+import {
+  AppDispatch,
+  RootNavigationGame,
+  RootState,
+  colors,
+  useCallback,
+  useEffect,
+} from "@shared";
+import { filterGame, resetBet } from "../../store/Slices/Bet";
+import { getBetAsync } from "../../store/Slices/Bet/thunk";
 import * as styles from "./styles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { logoutUser } from "../../store/User";
+import { logoutUser } from "../../store/Slices/User";
 
 export const Home = (
   props: NativeStackScreenProps<RootNavigationGame, "Home">
@@ -38,13 +42,13 @@ export const Home = (
       headerShown: true,
       headerRight: () => (
         <HeaderButtons HeaderButtonComponent={ButtonHeader}>
-           <Item
+          <Item
             title="New Bet"
             iconName="game-controller"
             color={colors.colorDetailsGreen}
             onPress={() => props.navigation.navigate("NewBet")}
           />
-           <Item
+          <Item
             title="LogOut"
             iconName="log-out-outline"
             color={colors.colorDetailsGreen}
@@ -63,14 +67,14 @@ export const Home = (
     try {
       await dispatch(getBetAsync(gamesOnFilter));
     } catch (e: any) {
-      console.log(`falhou`);
+      throw new Error(e);
     }
   }, [gamesOnFilter]);
 
   useEffect(() => {
-    dispatch(resetBet());
+    //dispatch(resetBet());
     handleBets();
-  }, [resetBet]);
+  }, []);
 
   let gamesUser: string[] = [];
 
@@ -101,7 +105,7 @@ export const Home = (
         })}
       </styles.Buttons>
       <styles.Title>RECENT GAMES</styles.Title>
-      {!betPlaced && (
+      {betPlaced.length === 0 && (
         <styles.MessageEmpty>
           There are no bets. To start playing start a new game from the bottom
           menu under "New Bet".
@@ -109,6 +113,7 @@ export const Home = (
       )}
       <FlatList
         data={betPlaced}
+        keyExtractor={(item) => item.choosen_numbers}
         renderItem={(item) => {
           const gameBet = games.find((gam) => {
             return gam.id === item.item.game_id;
@@ -116,7 +121,7 @@ export const Home = (
           return (
             <ItemBet
               type={gameBet ? gameBet.type : ""}
-              color={gameBet ? gameBet.color : ""}
+              color={gameBet ? gameBet.color : "white"}
               numbers={item.item.choosen_numbers}
               price={item.item.price}
               data={item.item.created_at}

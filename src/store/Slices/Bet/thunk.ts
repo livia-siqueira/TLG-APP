@@ -1,8 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { AppDispatch, RootState } from "../../shared/helpers/types/Game";
+import { AppDispatch, RootState } from "@shared";
 import { filterGame, setBets } from ".";
-import { api } from "../../services/api";
-import { getBet } from "../../services/api/Cart/getBet";
+import { getBet } from "../../../services/api/Cart/getBet";
 
 
 export const getBetAsync = createAsyncThunk<void, string[], {

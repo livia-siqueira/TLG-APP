@@ -1,9 +1,9 @@
 import { Dimensions } from "react-native";
 import styled from "styled-components/native";
-import { colors } from "../../shared/constants/colors";
+import { colors } from "../../shared/constants";
 
 export const Container = styled.ScrollView`
-  width: 100%;
+  width:  ${Dimensions.get("screen").width}px;
   height: ${Dimensions.get("screen").height / 2}px;
 `;
 
@@ -24,7 +24,7 @@ export const TitleForm = styled.Text`
 `;
 
 export const ContainerButton = styled.View`
-  width: 100%;
+  width: 300px;
   margin-vertical: 30px;
   justify-content: center;
   align-items: center;
@@ -49,8 +49,8 @@ export const Content = styled.View`
 `;
 
 export const Footer = styled.View`
-  width: 100%;
-  margin-top: 35%;
+  width: ${Dimensions.get('window').width}px;
+  margin-top: 120px;
   height: 50px;
   border-top-width: 1px;
   border-top-color: ${colors.colorBorderCart};
@@ -70,16 +70,16 @@ export const ContainerForm = styled.View`
   background-color: ${colors.colorWhite};
   border-radius: 20px;
   border: 1px solid ${colors.colorBorderForm};
-  height: 70%;
+  height: 300px;
   width: 300px;
 `;
 
 export const ContainerInput = styled.View`
-  width: 100%;
+  width: 300px;
 `;
 
 export const Input = styled.TextInput`
-  width: 100%;
+  width: 300px;
   padding: 12px;
   font-size: 20px;
   height: 70px;

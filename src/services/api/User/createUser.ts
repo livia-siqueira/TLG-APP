@@ -1,6 +1,6 @@
 import AsyncStorage from  '@react-native-async-storage/async-storage';
 import { api } from "..";
-import { ApiError, TokenApi } from "../../../shared/helpers/types/Game";
+import { TokenAPI } from "@shared";
 
 export const methodCreateUserAPI = async (dataUser: {
     email: string,
@@ -11,14 +11,12 @@ export const methodCreateUserAPI = async (dataUser: {
         const data = await api.post("user/create", dataUser)
         const resp = data.data;
         if(resp.user){
-            const token : TokenApi = resp.token;
+            const token : TokenAPI = resp.token;
             await AsyncStorage.setItem("@token", token.token)
             return resp
         }
         if(resp.error){
-            const error : ApiError = resp.error;
-            console.log(error)
-            return error;
+           throw new Error(resp.error);
         }
     }catch(e: any) {
         return e.response.data.error.message

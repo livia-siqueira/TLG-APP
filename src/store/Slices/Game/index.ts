@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Game, GamesRules } from "../../shared/helpers/types/Game";
+import { Game, Games } from "@shared";
 import { gamesLoads } from "./thunk";
 
 type initial = {

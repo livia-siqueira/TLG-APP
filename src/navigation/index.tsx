@@ -1,15 +1,9 @@
-import { AppDispatch, RootState } from "../shared/helpers/types/Game";
+import { AppDispatch, RootState, useCallback, useEffect } from "@shared";
 import { useDispatch, useSelector } from "react-redux";
-import AuthNavigator from "./AuthNavigator";
 import { AppNavigator } from "./GameNavigator";
-
-
-
-import React, { useCallback, useEffect } from 'react';
-
 import AuthRoutes from './AuthNavigator/index';
-import { gamesLoads } from "../store/Game/thunk";
-import { getUserAsync } from "../store/User/thunk";
+import { gamesLoads } from "../store/Slices/Game/thunk";
+import { getUserAsync } from "../store/Slices/User/thunk";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
@@ -21,12 +15,9 @@ const Routes: React.FC = () => {
     try {
       await dispatch(gamesLoads());
     } catch (e: any) {
-      console.log("erro");
+     throw new Error(e);
     }
   }, []);
-
-
-  console.log(hasUserLogged);
 
   
 

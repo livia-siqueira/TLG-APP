@@ -1,6 +1,6 @@
 import { Dimensions } from "react-native";
 import styled from "styled-components/native";
-import { colors } from "../../shared/constants/colors";
+import { colors } from "../../shared/constants";
 
 interface DetailsButton {
   color: string;

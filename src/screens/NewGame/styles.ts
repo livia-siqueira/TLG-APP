@@ -1,24 +1,22 @@
 import { Dimensions } from "react-native";
 import styled from "styled-components/native";
-import { colors } from "../../shared/constants/colors";
-
+import { colors } from "@shared";
 
 export const Input = styled.TextInput`
-    borderBottomColor: ${colors.colorBorder};
-    borderBottomWidth: 1px;
-    width: 90%;
-    marginVertical: 5%;
-    height: 50px;
-`
+  border-bottom-color: ${colors.colorBorder};
+  border-bottom-width: 1px;
+  width: 90%;
+  margin-vertical: 5%;
+  height: 50px;
+`;
 
 export const Button = styled.TouchableOpacity`
-    width: ${Dimensions.get('screen').width};
-    justifyContent: center;
-    alignItems: center;
-
-`
+  width: ${Dimensions.get("screen").width};
+  justify-content: center;
+  align-items: center;
+`;
 export const TextButton = styled.Text`
-    fontFamily: 'Roboto-BoldItalic';
-    fontSize: 50px;
-    color: ${colors.colorTextFooterCart};
-`
+  font-family: "Roboto-BoldItalic";
+  font-size: 50px;
+  color: ${colors.colorTextFooterCart};
+`;

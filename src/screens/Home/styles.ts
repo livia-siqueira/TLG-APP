@@ -1,10 +1,10 @@
 import styled from "styled-components/native";
-import { colors } from "../../shared/constants/colors";
+import { colors } from "../../shared/constants";
 
 export const Container = styled.View`
   margin-vertical: 30px;
   margin-horizontal: 20px;
-  width: 90%;
+  width: 350px;
   margin-bottom: 180px;
 `;
 
@@ -22,4 +22,11 @@ export const Title = styled.Text`
   margin-vertical: 20px;
 `;
 
-export const MessageEmpty = styled.Text``;
+export const MessageEmpty = styled.Text`
+  font-size: 18px;
+  font-family: 'Roboto-BoldItalic';
+  color: ${colors.colorTextTitle};
+  text-align: center;
+  margin-vertical: 80px;
+
+`;

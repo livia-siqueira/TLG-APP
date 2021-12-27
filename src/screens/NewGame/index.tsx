@@ -1,6 +1,5 @@
-import { RootState } from "../../shared/helpers/types/Game";
+import { RootState } from "@shared";
 import React from "react";
-import { useSelector } from "react-redux";
 import { Card } from "../../components/Card";
 import * as styles from "./styles"
 

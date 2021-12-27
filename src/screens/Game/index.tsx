@@ -1,8 +1,7 @@
 import React from "react";
 import * as styles from "./styles";
 import { Alert, FlatList } from "react-native";
-import { AppDispatch, RootNavigationGame, RootState } from "../../shared/helpers/types/Game";
-import { changeGameSelected } from "../../store/Game";
+import { changeGameSelected } from "../../store/Slices/Game/index";
 import {
   useEffect,
   useState,
@@ -13,15 +12,18 @@ import {
   HeaderButtons,
   Item,
   sortNumber,
-} from "../../shared/helpers";
-import { colors } from "../../shared/constants/colors";
+  AppDispatch, RootNavigationGame, RootState, colors
+} from "@shared";
 import {
   ButtonChoiceGame,
   ButtonBet,
   ButtonAction,
   ButtonHeader,
 } from "@components";
-import { addBetCart } from "../../store/Cart";
+import { addBetCart } from "../../store/Slices/Cart/index";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { logoutUser } from "../../store/Slices/User/index";
+
 
 export const Game = (
   props: NativeStackScreenProps<RootNavigationGame, "Game">
@@ -32,6 +34,15 @@ export const Game = (
   const user = useSelector((state: RootState) => state.user.userActual);
   const dispatch: AppDispatch = useDispatch();
   const games = useSelector((state: RootState) => state.game.games);
+
+  const handleLogout = async () => {
+    try {
+      await AsyncStorage.removeItem("@token");
+      dispatch(logoutUser());
+    } catch (e: any) {
+      throw new Error(e);
+    }
+  };
 
   useEffect(() => {
     props.navigation.setOptions({
@@ -56,9 +67,7 @@ export const Game = (
             title="Logout"
             iconName="log-out-outline"
             color={colors.colorDetailsGreen}
-            onPress={() => {
-              props.navigation.navigate("Cart");
-            }}
+            onPress={handleLogout}
           />
         </HeaderButtons>
       ),
@@ -119,7 +128,7 @@ export const Game = (
 
   const addBetInCart = useCallback(() => {
     if (numbersBet.length === gameActual?.max_number) {
-      dispatch(
+      const a = dispatch(
         addBetCart({
           choosen_numbers: sortNumber(numbersBet),
           user_id: user ? user?.id : 0,
@@ -128,6 +137,7 @@ export const Game = (
           created_at: new Date().toString(),
         })
       );
+      
     } else {
       return Alert.alert(
         "Err",

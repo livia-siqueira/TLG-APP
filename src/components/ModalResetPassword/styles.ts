@@ -1,15 +1,15 @@
 import styled from "styled-components/native";
-import { colors } from "../../shared/constants/colors";
+import { colors } from "@shared";
 
 export const Container = styled.View` 
     flex: 1;
-    width: 80%;
+    width: 280px;
     justify-content: center;
     align-items: center;
     position: absolute;
-    height: 50%;
-    margin: 20px;
-    margin-top: 160px;
+    height: 280px;
+    margin: 20px auto;
+    margin-top: 160px ;
     background-color: white;
     elevation: 10;
     border-radius: 12px;
@@ -40,11 +40,11 @@ export const Title = styled.Text`
 
 export const Input = styled.TextInput` 
     width: 90%;
-    paddingHorizontal: 12px;
-    fontSize: 20px;
+    padding-horizontal: 12px;
+    font-size: 20px;
     height: 70px;
-    borderBottomColor: ${colors.colorBorderBottomHeader};
-    borderBottomWidth: 1px;
+    border-bottom-color: ${colors.colorBorderBottomHeader};
+    border-bottom-width: 1px;
 
 `
 

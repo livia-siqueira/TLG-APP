@@ -1,27 +1,27 @@
 import { color } from "react-native-reanimated";
 import styled from "styled-components/native";
-import { colors } from "../../shared/constants/colors";
-
+import { colors } from "../../shared/constants";
 
 interface DetailsButton {
-    isAtive: boolean;
-    color: string
+  isAtive: boolean;
+  color: string;
 }
 
 export const Container = styled.TouchableOpacity<DetailsButton>` 
-    backgroundColor: ${props => props.isAtive ? props.color : colors.colorDefaultButton}
+    background-color: ${(props) =>
+      props.isAtive ? props.color : colors.colorDefaultButton}
     width: 30px;
     height: 30px;
-    borderRadius: 20px;
-    marginHorizontal: 5px;
-    marginVertical: 5px;
-`
+    border-radius: 20px;
+    margin-horizontal: 5px;
+    margin-vertical: 5px;
+`;
 
 export const TextButton = styled.Text`
-    color: ${colors.colorWhite};
-    fontFamily: 'Roboto-Bold';
-    fontSize: 20px;
-    textAlign: center;
-    justifyContent: center;
-    alignItems: center;
-`
+  color: ${colors.colorWhite};
+  font-family: "Roboto-Bold";
+  font-size: 20px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+`;

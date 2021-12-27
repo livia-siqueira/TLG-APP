@@ -1,21 +1,17 @@
-import { ButtonHeader } from "@components";
+import { ButtonHeader, ItemCart, Card } from "@components";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { AppDispatch, RootNavigationGame, RootState } from "../../shared/helpers/types/Game";
-import React, { useCallback, useEffect } from "react";
+import React from "react";
 import { View, FlatList, Alert} from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { useDispatch, useSelector } from "react-redux";
-import { ItemCart } from "../../components/ItemCart";
-import { colors } from "../../shared/constants/colors";
+import { colors, formatNumber, AppDispatch, RootNavigationGame, RootState, useCallback, useEffect } from "@shared";
 import * as styles from "./styles";
 import { Ionicons } from "@expo/vector-icons";
-import { formatNumber } from "../../shared/helpers";
-import { addBetInCartAsync } from "../../store/Cart/thunk";
-import { Card } from "../../components/Card";
-import { removeBetCart } from "../../store/Cart";
-import { getBetAsync } from "../../store/Bet/thunk";
+import { addBetInCartAsync } from "../../store/Slices/Cart/thunk";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { logoutUser } from "../../store/User";
+import { logoutUser } from "../../store/Slices/User/index";
+import { removeBetCart, resetCart } from "../../store/Slices/Cart/index";
+import { resetBet } from "../../store/Slices/Bet";
 
 
 export const Cart = (
@@ -42,6 +38,9 @@ export const Cart = (
   const addBetInCart = useCallback(async () => {
     if(cartTotal >= 30) {
       await dispatch(addBetInCartAsync(items))
+      await dispatch(resetBet());
+      props.navigation.navigate("Home");
+
     }
     else {
       Alert.alert("Error saving bet", "Bet at least R$30.00 to complete your cart.", [
@@ -114,7 +113,7 @@ export const Cart = (
           }}
         />
         <styles.AreaPrice>
-            <styles.TextCart><styles.Negrito>CART</styles.Negrito> TOTAL: {formatNumber(cartTotal)}</styles.TextCart>
+            <styles.TextCart><styles.Negrito>CART</styles.Negrito> TOTAL: {formatNumber(cartTotal).replace(".", ",")}</styles.TextCart>
         </styles.AreaPrice>
       </styles.Content>
       <styles.Button>

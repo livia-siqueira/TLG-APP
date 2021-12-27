@@ -1,7 +1,7 @@
 import React from "react";
 import * as styles from "./styles";
 import { AntDesign } from "@expo/vector-icons";
-import { colors } from "../../shared/constants/colors";
+import { colors } from "../../shared/constants";
 
 interface Button {
   title: string;
@@ -12,7 +12,7 @@ export const ButtonForm = ({ title, eventClick }: Button) => {
   return (
     <styles.Button activeOpacity={0.6} onPress={eventClick ? eventClick : () => {}}>
       {title === "Back" ? (
-          <styles.TextButton style={{ color: colors.colorTextTitle}} >
+          <styles.TextButton style={{ color: colors.colorTextTitle, marginHorizontal: 100}} >
             <AntDesign
               name="arrowleft"
               size={24}

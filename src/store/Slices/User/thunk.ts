@@ -1,10 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { createUser, loginUser, setUser } from ".";
-import { methodCreateUserAPI } from "../../services/api/User/createUser";
-import { getUser } from "../../services/api/User/getUser";
-import { loginUserAPI } from "../../services/api/User/LoginUser";
-import updateAccount from "../../services/api/User/updateAccount";
-import { AppDispatch, RootState } from "../../shared/helpers/types/Game";
+import { methodCreateUserAPI } from "../../../services/api/User/createUser";
+import { getUser } from "../../../services/api/User/getUser";
+import { loginUserAPI } from "../../../services/api/User/LoginUser";
+import updateAccount from "../../../services/api/User/updateAccount";
+import { AppDispatch, RootState } from "@shared";
 
 export const creatingUser = createAsyncThunk<
   void,
