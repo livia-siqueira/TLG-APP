@@ -9,7 +9,7 @@ interface propsButton {
 export const ContainerButton = styled.TouchableOpacity<propsButton>`
   border-color: ${(props) => props.color};
   border-width: 2px;
-  width: ${Dimensions.get("screen").width / 4}px;
+  width: ${Dimensions.get("screen").width/4}px;
   border-radius: 12px;
   padding-horizontal: 12px;
   padding-vertical: 5px;

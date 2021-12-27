@@ -7,5 +7,4 @@ export {MainButton} from './MainButton'
 export {ModalResetPassword} from './ModalResetPassword';
 export {ItemCart} from './ItemCart';
 export {ItemBet} from './ItemBet';
-
 export {Card} from './Card';

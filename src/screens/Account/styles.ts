@@ -30,7 +30,7 @@ export const Input = styled.TextInput`
   height: 50px;
 `;
 export const Button = styled.TouchableOpacity`
-  width: ${Dimensions.get("screen").width};
+  width: ${Dimensions.get("screen").width}px;
   justify-content: center;
   align-items: center;
 `;

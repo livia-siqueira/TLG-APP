@@ -45,6 +45,10 @@ export const Game = (
   };
 
   useEffect(() => {
+    dispatch(changeGameSelected("Lotofácil"))
+  }, [])
+
+  useEffect(() => {
     props.navigation.setOptions({
       headerShown: true,
       headerTitle: "TLG",
@@ -79,7 +83,7 @@ export const Game = (
       setNumbersBet((numbers) => {
         const maxNumber = gameActual?.max_number;
         if (maxNumber === numbers.length) {
-          Alert.alert("Err!!", "Numbers are enough for betting", [
+          Alert.alert("Error!!", "Numbers are enough for betting", [
             {
               text: "OK",
             },
@@ -140,7 +144,7 @@ export const Game = (
       
     } else {
       return Alert.alert(
-        "Err",
+        "Error",
         "Please choose the correct amount of numbers to bet.",
         [
           {

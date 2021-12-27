@@ -20,6 +20,11 @@ const controlCart = createSlice({
       if (state.bets.length === 0) {
         state.bets.push(action.payload);
         state.totalCart += action.payload.price;
+        return Alert.alert("Sucess", "Bet added to cart", [
+          {
+            text: "Ok"
+          }
+        ])
       }
       const p = state.bets.map((bet) => {
         return sameValues(bet.choosen_numbers, action.payload.choosen_numbers);
@@ -27,8 +32,8 @@ const controlCart = createSlice({
       const betExist = p.filter((exist) => {
         return exist === true;
       });
-      if (betExist.length !== 0 && state.bets.length !== 1) {
-        return Alert.alert("Err", "Bet already placed", [
+      if (betExist.length !== 0 && state.bets.length >= 1) {
+        return Alert.alert("Error", "Bet already placed", [
           {
             text: "Ok"
           }
@@ -38,6 +43,11 @@ const controlCart = createSlice({
         if(betExist.length === 0){
           state.bets.push(action.payload);
           state.totalCart += action.payload.price;
+          return Alert.alert("Sucess", "Bet added to cart", [
+            {
+              text: "Ok"
+            }
+          ])
         }
       
       }

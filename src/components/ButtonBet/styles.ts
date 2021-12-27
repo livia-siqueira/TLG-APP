@@ -9,18 +9,20 @@ interface DetailsButton {
 
 export const Container = styled.TouchableOpacity<DetailsButton>` 
     background-color: ${(props) =>
-      props.isAtive ? props.color : colors.colorDefaultButton}
+    props.isAtive ? props.color : colors.colorDefaultButton}
     width: 30px;
     height: 30px;
     border-radius: 20px;
     margin-horizontal: 5px;
     margin-vertical: 5px;
+    justify-content: center;
+    align-items: center;
 `;
 
 export const TextButton = styled.Text`
   color: ${colors.colorWhite};
   font-family: "Roboto-Bold";
-  font-size: 20px;
+  font-size: 18px;
   text-align: center;
   justify-content: center;
   align-items: center;

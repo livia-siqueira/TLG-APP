@@ -5,13 +5,14 @@ export const Container = styled.View`
   margin-vertical: 30px;
   margin-horizontal: 20px;
   width: 350px;
-  margin-bottom: 180px;
+  margin-bottom: 250px;
 `;
 
 export const Buttons = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  width: 350px;
 `;
 
 export const Title = styled.Text`

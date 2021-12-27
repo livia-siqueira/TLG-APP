@@ -25,7 +25,7 @@ export const AuthScreen = ({ navigation }: iHomeProps) => {
   }, [setModalStatus, modalStatus]);
 
   const createUser = async () => {
-    if (inputEmail?.trim() || inputName?.trim() || inputPassword?.trim) {
+    if (inputEmail?.trim() && inputName?.trim() && inputPassword?.trim) {
       try {
         const resp = await dispacth(
           creatingUser({

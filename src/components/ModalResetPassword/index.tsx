@@ -16,20 +16,20 @@ export const ModalResetPassword = (props: modal) => {
     
 
     const resetPass = useCallback(async() => {
-        const resp =  await resetPassword({email: inputEmail ? inputEmail : ''})
+        const resp =  await resetPassword({email: inputEmail ? inputEmail.trim() : ''})
         if(resp?.data) {
           setHasUser(true);
         }
         else{
             if(!inputEmail?.trim()) {
-                return  Alert.alert("Err", "Field is empty", [
+                return  Alert.alert("Error", "Field is empty", [
                     {
                         text: 'Ok',
                     }
                 ])
             }
 
-            Alert.alert("Err", "User does not exist", [
+            Alert.alert("Error", "User does not exist", [
                 {
                     text: 'Ok',
                     onPress: props.eventBackPage

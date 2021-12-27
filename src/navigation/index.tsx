@@ -5,6 +5,7 @@ import AuthRoutes from './AuthNavigator/index';
 import { gamesLoads } from "../store/Slices/Game/thunk";
 import { getUserAsync } from "../store/Slices/User/thunk";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { changeGameSelected } from "../store/Slices/Game";
 
 
 const Routes: React.FC = () => {
@@ -19,7 +20,6 @@ const Routes: React.FC = () => {
     }
   }, []);
 
-  
 
   const loadUser = useCallback(async () => {
     try {

@@ -37,7 +37,7 @@ export const Account: React.FC = () => {
       return Alert.alert("Sucess!", "Changes made successfully.");
     } else {
       return Alert.alert(
-        "Err!",
+        "Error!",
         "There was a problem, please try again. Correct format for email: [xx...]@[xxxx...].[xxx]"
       );
     }

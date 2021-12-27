@@ -38,7 +38,7 @@ export const Cart = (
   const addBetInCart = useCallback(async () => {
     if(cartTotal >= 30) {
       await dispatch(addBetInCartAsync(items))
-      await dispatch(resetBet());
+      dispatch(resetCart());
       props.navigation.navigate("Home");
 
     }

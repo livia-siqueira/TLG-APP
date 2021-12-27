@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { Home, Cart, Game, Account, NewGame } from "@screens";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StyleSheet, View, Text} from "react-native";
-import { RootState, useSelector, colors } from "@shared";
+import { RootState, useSelector, colors, AppDispatch, useDispatch } from "@shared";
+import { changeGameSelected } from "../../store/Slices/Game";
 
 const Tab = createBottomTabNavigator();
 const GameStack = createNativeStackNavigator();
 
+
 const GameNavigator = () => {
+  const dispatch : AppDispatch = useDispatch(); 
+  useEffect(() => {
+    dispatch(changeGameSelected("Lotofácil"));
+  }, [])
   return (
     <GameStack.Navigator>
       <GameStack.Screen
@@ -22,9 +28,13 @@ const GameNavigator = () => {
   );
 };
 
+
+
 export const AppNavigator = () => {
   const userLogged = useSelector((state: RootState) => state.user.userActual);
   const hasAdmin = userLogged ? userLogged.is_admin : 0;
+
+ 
 
   return (
     <Tab.Navigator

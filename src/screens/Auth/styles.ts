@@ -12,7 +12,7 @@ export const TextButton = styled.Text`
 `;
 
 export const ContainerTitleForm = styled.View`
-  font-size: 5%;
+  font-size: 20px;
 `;
 
 export const TitleForm = styled.Text`
