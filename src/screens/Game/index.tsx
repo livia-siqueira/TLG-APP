@@ -1,7 +1,7 @@
 import React from "react";
 import * as styles from "./styles";
 import { Alert, FlatList } from "react-native";
-import { AppDispatch, RootNavigationGame, RootState } from "@types";
+import { AppDispatch, RootNavigationGame, RootState } from "../../shared/helpers/types/Game";
 import { changeGameSelected } from "../../store/Game";
 import {
   useEffect,
@@ -13,9 +13,8 @@ import {
   HeaderButtons,
   Item,
   sortNumber,
-} from "@helpers";
+} from "../../shared/helpers";
 import { colors } from "../../shared/constants/colors";
-import { methodCreateBetAPI } from "../../services/api/Cart/addBetInCart";
 import {
   ButtonChoiceGame,
   ButtonBet,
@@ -23,48 +22,59 @@ import {
   ButtonHeader,
 } from "@components";
 import { addBetCart } from "../../store/Cart";
-import { getUserAsync } from "../../store/User/thunk";
 
 export const Game = (
   props: NativeStackScreenProps<RootNavigationGame, "Game">
 ) => {
   const [numbersBet, setNumbersBet] = useState<number[]>([]);
 
-
   const gameActual = useSelector((state: RootState) => state.game.gameActual);
   const user = useSelector((state: RootState) => state.user.userActual);
   const dispatch: AppDispatch = useDispatch();
   const games = useSelector((state: RootState) => state.game.games);
 
-
   useEffect(() => {
     props.navigation.setOptions({
-     headerShown: true,
+      headerShown: true,
+      headerTitle: "TLG",
+      headerTitleStyle: {
+        color: colors.colorTextTitle,
+        fontFamily: "Roboto-BoldItalic",
+        fontSize: 28,
+      },
       headerRight: () => (
         <HeaderButtons HeaderButtonComponent={ButtonHeader}>
           <Item
-          title="Cart"
-          iconName="cart"
-          color={colors.colorDetailsGreen}
-          onPress={() => {
-            props.navigation.navigate("Cart");
-          }}
-        />
-      </HeaderButtons>
-      )
-        });
-      },[])
+            title="Cart"
+            iconName="cart"
+            color={colors.colorDetailsGreen}
+            onPress={() => {
+              props.navigation.navigate("Cart");
+            }}
+          />
+          <Item
+            title="Logout"
+            iconName="log-out-outline"
+            color={colors.colorDetailsGreen}
+            onPress={() => {
+              props.navigation.navigate("Cart");
+            }}
+          />
+        </HeaderButtons>
+      ),
+    });
+  }, []);
 
   const addNumberInBet = useCallback(
     (item: number) => {
       setNumbersBet((numbers) => {
         const maxNumber = gameActual?.max_number;
-        if(maxNumber === numbers.length){
+        if (maxNumber === numbers.length) {
           Alert.alert("Err!!", "Numbers are enough for betting", [
             {
-              text: 'OK'
-            }
-          ])
+              text: "OK",
+            },
+          ]);
           return numbers;
         }
         const exist = numbers?.includes(item);
@@ -94,7 +104,6 @@ export const Game = (
     });
   }, [gameActual]);
 
-
   const removeNumberInBet = useCallback(
     (item: number) => {
       setNumbersBet((numbers) => {
@@ -108,31 +117,32 @@ export const Game = (
     setNumbersBet([]);
   };
 
-  
   const addBetInCart = useCallback(() => {
-
-    if(numbersBet.length === gameActual?.max_number){
+    if (numbersBet.length === gameActual?.max_number) {
       dispatch(
         addBetCart({
           choosen_numbers: sortNumber(numbersBet),
           user_id: user ? user?.id : 0,
           game_id: gameActual ? gameActual?.id : 0,
           price: gameActual ? gameActual.price : 0,
-          created_at: new Date().toString()
+          created_at: new Date().toString(),
         })
       );
+    } else {
+      return Alert.alert(
+        "Err",
+        "Please choose the correct amount of numbers to bet.",
+        [
+          {
+            text: "OK",
+          },
+        ]
+      );
     }
-    else{
-      return Alert.alert('Err', "Please choose the correct amount of numbers to bet.", [
-        {
-          text: "OK"
-        }
-      ])
-    }
-  
+
     resetGame();
   }, [numbersBet, gameActual]);
-  
+
   const selectGameActual = useCallback((title: string) => {
     dispatch(changeGameSelected(title));
   }, []);
@@ -151,17 +161,22 @@ export const Game = (
       </styles.PageTitle>
       <styles.Text>Choose a game</styles.Text>
       <styles.Button>
-        <FlatList numColumns={3}  keyExtractor={(item) => item.id.toString()}  data={games} renderItem={(item) => {
-           const isExist = item.item.type === gameActual?.type;
-           return (
-            <ButtonChoiceGame
-              isAtive={isExist}
-              color={item.item.color}
-              title={item.item.type}
-              event={selectGameActual}
-            />
-          );
-        }}/>
+        <FlatList
+          numColumns={3}
+          keyExtractor={(item) => item.id.toString()}
+          data={games}
+          renderItem={(item) => {
+            const isExist = item.item.type === gameActual?.type;
+            return (
+              <ButtonChoiceGame
+                isAtive={isExist}
+                color={item.item.color}
+                title={item.item.type}
+                event={selectGameActual}
+              />
+            );
+          }}
+        />
       </styles.Button>
       <styles.Description>
         <styles.Text>Fill your bet</styles.Text>
@@ -189,7 +204,6 @@ export const Game = (
           />
         </styles.Game>
         <styles.Actions>
-          <styles.ButtonLeft>
             <ButtonAction
               title="Clear Game"
               event={resetGame}
@@ -202,7 +216,6 @@ export const Game = (
               color="transparent"
               fontColor={colors.colorTextFooterCart}
             />
-          </styles.ButtonLeft>
           <ButtonAction
             title="Add to cart"
             event={addBetInCart}

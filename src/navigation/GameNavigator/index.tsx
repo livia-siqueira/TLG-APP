@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback } from "react";
+import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { Home } from "../../screens/Home";
 import { colors } from "../../shared/constants/colors";
@@ -9,10 +9,8 @@ import { StyleSheet, View, Text} from "react-native";
 import { Cart } from "../../screens";
 import { Account } from "../../screens/Account";
 import { NewGame } from "../../screens/NewGame";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@types";
-import { logoutUser } from "../../store/User";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useSelector } from "react-redux";
+import { RootState } from "../../shared/helpers/types/Game";
 
 const Tab = createBottomTabNavigator();
 const GameStack = createNativeStackNavigator();
@@ -33,16 +31,6 @@ const GameNavigator = () => {
 export const AppNavigator = () => {
   const userLogged = useSelector((state: RootState) => state.user.userActual);
   const hasAdmin = userLogged ? userLogged.is_admin : 0;
-  const dispatch: AppDispatch = useDispatch();
-
-  const handleLogout = async () => {
-    try {
-      await AsyncStorage.removeItem("@token");
-      dispatch(logoutUser());
-    } catch (e: any) {
-      console.log(e);
-    } 
-  };
 
   return (
     <Tab.Navigator
@@ -55,7 +43,7 @@ export const AppNavigator = () => {
           fontSize: 28,
         },
         headerStyle: {
-          backgroundColor: colors.colorPrimary,
+          backgroundColor: 'white',
         },
         tabBarStyle: {
           position: "absolute",
@@ -100,7 +88,7 @@ export const AppNavigator = () => {
       />
       <Tab.Screen
         component={GameNavigator}
-        name="New Bet"
+        name="NewBet"
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <View style={styles.iconTabRound}>

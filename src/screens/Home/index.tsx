@@ -7,7 +7,7 @@ import { ButtonChoiceGame } from "../../components/ButtonChoiceGame";
 import { ButtonHeader } from "../../components/ButtonHeader";
 import { ItemBet } from "../../components/ItemBet";
 import { colors } from "../../shared/constants/colors";
-import { AppDispatch, RootNavigationGame, RootState } from "../../shared/types";
+import { AppDispatch, RootNavigationGame, RootState } from "../../shared/helpers/types/Game";
 import { filterGame, resetBet } from "../../store/Bet";
 import { getBetAsync } from "../../store/Bet/thunk";
 import * as styles from "./styles";
@@ -38,8 +38,14 @@ export const Home = (
       headerShown: true,
       headerRight: () => (
         <HeaderButtons HeaderButtonComponent={ButtonHeader}>
-          <Item
+           <Item
             title="New Bet"
+            iconName="game-controller"
+            color={colors.colorDetailsGreen}
+            onPress={() => props.navigation.navigate("NewBet")}
+          />
+           <Item
+            title="LogOut"
             iconName="log-out-outline"
             color={colors.colorDetailsGreen}
             onPress={handleLogout}

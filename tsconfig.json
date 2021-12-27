@@ -6,10 +6,12 @@
     "jsx": "react-native",
     "paths": {
       "@components": ["./src/components"],
-      "@types": ["./src/shared/types"],
+      "@types": ["./src/shared/utils/types"],
       "@store": ["./src/store"],
-      "@helpers": ["./src/shared/helpers"],
-      "@screens": ["./src/screens/"]
+      "@utils": ["./src/shared/utils"],
+      "@screens": ["./src/screens/"],
+      "@functions": ["./src/shared/utils/function"],
+      "@hooks": ["./src/shared/utils/hooks"]
     }
   }
 }

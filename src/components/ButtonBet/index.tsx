@@ -14,6 +14,7 @@ export const ButtonBet = (props: propsButtonBet) => {
   return (
     <styles.Container
       isAtive={isAtive}
+      delayPressIn={10}
       color={props.color}
       onPress={
         isAtive

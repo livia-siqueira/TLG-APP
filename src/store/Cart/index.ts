@@ -1,6 +1,6 @@
-import { sameValues } from "@helpers";
+import { sameValues } from "../../shared/helpers";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Bet } from "@types";
+import { Bet } from "../../shared/helpers/types/Game";
 import { Alert } from "react-native";
 
 interface state {

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {User, ApiUser, SliceUser, Bet} from '../../shared/types/';
+import {User, ApiUser, SliceUser, Bet} from '../../shared/helpers/types/Game';
 import { loginUserAsync } from "./thunk";
 
 const initialState : SliceUser = {

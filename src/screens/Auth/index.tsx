@@ -2,7 +2,7 @@ import React, {useCallback, useState } from "react";
 import { Alert, View} from "react-native";
 import * as styles from "./styles";
 import { ButtonForm, MainButton } from "@components";
-import { AppDispatch, RootState } from "@types";
+import { AppDispatch } from "../../shared/helpers/types/Game";
 import { NavigationStackProp } from "react-navigation-stack";
 import { useDispatch} from "react-redux";
 import { creatingUser, loginUserAsync } from "../../store/User/thunk";

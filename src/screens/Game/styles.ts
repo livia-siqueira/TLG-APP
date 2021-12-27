@@ -1,75 +1,68 @@
 import styled from "styled-components/native";
 import { colors } from "../../shared/constants/colors";
 
+export const Container = styled.View`
+  width: 100%;
+  margin-vertical: 10px;
+  margin-horizontal: 20px;
+  flex: 1;
+  margin-bottom: 30px;
+`;
 
-export const Container = styled.View` 
-    width: 100%;
-    marginVertical: 10px;
-    marginHorizontal: 20px;
-    flex: 1;
-    marginBottom: 30px;
-`
-
-export const Title = styled.Text` 
-    fontFamily: 'Roboto-BoldItalic';
-    fontSize: 22px;
-    color: ${colors.colorTextTitle};
-
-`
-export const TypeGame = styled.Text` 
-    fontFamily: 'Roboto-ThinItalic';
-    color: ${colors.colorTextTitle};
-   
-`
-export const PageTitle = styled.View` 
-    marginVertical: 20px;
-`
+export const Title = styled.Text`
+  font-family: "Roboto-BoldItalic";
+  font-size: 22px;
+  color: ${colors.colorTextTitle};
+`;
+export const TypeGame = styled.Text`
+  font-family: "Roboto-ThinItalic";
+  color: ${colors.colorTextTitle};
+`;
+export const PageTitle = styled.View`
+  margin-vertical: 20px;
+`;
 
 export const Button = styled.View`
-    flexDirection: row;
-    marginVertical: 20px;
-    justifyContent: center;
-    alignItems: center;
-    textAlign: center;
-`
+  flex-direction: row;
+  margin-vertical: 20px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+`;
 
-export const Game = styled.View` 
-    marginVertical: 10px;
-    width: 100%;
-    flex: 1;
-`
-export const ButtonLeft = styled.View` 
-    flexDirection: row;
-    marginRight: 25px;
-`
+export const Game = styled.View`
+  margin-vertical: 10px;
+  width: 100%;
+  flex: 1;
+`;
+export const ButtonLeft = styled.View`
+  flex-direction: row;
+`;
 
-export const Description = styled.View` 
-    width: 100%;
-    marginVertical: 10px;
-
-`
+export const Description = styled.View`
+  width: 100%;
+  margin-vertical: 10px;
+`;
 export const ContainerDescription = styled.View`
-    width: 80%;
-   
-`
+  width: 80%;
+`;
 export const Text = styled.Text`
-    textAlign: left;
+    text-align: left;
     color: ${colors.colorTextTitle}
-    fontFamily: 'Roboto-BoldItalic';
-`
+    font-family: 'Roboto-BoldItalic';
+`;
 
 export const TextDescription = styled.Text`
-    fontFamily: 'Roboto-ThinItalic'
-    textAlign: justify;
-    fontSize: 18;
-`
+    font-family: 'Roboto-ThinItalic'
+    text-align: justify;
+    font-size: 18;
+`;
 
-export const ContainerGame = styled.View` 
-    width: 100%;
-    flex: 1;
-    flexGrow: 1;
-`
+export const ContainerGame = styled.View`
+  width: 100%;
+  flex: 1;
+`;
 
-export const Actions = styled.View` 
-    flexDirection: row;
-`
+export const Actions = styled.View`
+  flex-direction: row;
+`;

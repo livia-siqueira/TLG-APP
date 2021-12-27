@@ -1,6 +1,6 @@
 import { api } from "..";
 import AsyncStorage from  '@react-native-async-storage/async-storage';
-import { TokenApi } from "@types";
+import { TokenApi } from "../../../shared/helpers/types/Game";
 import { changePassword } from "./changePassword";
 
 

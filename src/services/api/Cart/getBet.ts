@@ -1,4 +1,4 @@
-import { BetApi } from "@types";
+import { BetApi } from "../../../shared/helpers/types/API";
 import { api } from "..";
 
 export const getBet = async (types: string[]) => {

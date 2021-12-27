@@ -1,4 +1,4 @@
-import { RootState } from "@types";
+import { RootState } from "../../shared/helpers/types/Game";
 import React from "react";
 import { useSelector } from "react-redux";
 import { Card } from "../../components/Card";

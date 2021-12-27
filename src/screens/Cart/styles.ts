@@ -22,7 +22,9 @@ export const Title = styled.Text`
 `;
 
 export const AreaPrice = styled.View`
-     margin-left: -40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: -20px;
 `;
 
 export const Negrito = styled.Text`

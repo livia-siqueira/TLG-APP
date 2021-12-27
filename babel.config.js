@@ -8,10 +8,12 @@ module.exports = function(api) {
         {
           alias: {
             "@components": "./src/components",
-            "@types": "./src/shared/types",
+            "@types": "./src/shared/utils/types",
             "@store": "./src/store",
-            "@helpers": "./src/shared/helpers",
+            "@helpers": "./src/shared/utils",
             "@screens": "./src/screens/",
+            "@functions": "./src/shared/utils/function",
+            "@hooks": "./src/shared/utils/hooks"
           }
         }
       ],

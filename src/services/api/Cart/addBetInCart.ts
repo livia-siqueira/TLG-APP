@@ -1,6 +1,6 @@
 import AsyncStorage from  '@react-native-async-storage/async-storage';
 import { api } from "..";
-import { CartAPI } from "../../../shared/types";
+import { CartAPI } from "../../../shared/helpers/types/Game";
 
 export const methodCreateBetAPI = async (body: {games: CartAPI[]}) => {
     try {

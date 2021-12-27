@@ -1,4 +1,4 @@
-import { AppDispatch, RootState } from "@types";
+import { AppDispatch, RootState } from "../shared/helpers/types/Game";
 import { useDispatch, useSelector } from "react-redux";
 import AuthNavigator from "./AuthNavigator";
 import { AppNavigator } from "./GameNavigator";

@@ -5,50 +5,46 @@ import { colors } from "../../shared/constants/colors";
 
 export const Container = styled.View`
   width: 90%;
-  backgroundColor: ${colors.colorWhite};
-  borderRadius: 12px;
-  borderColor: ${colors.colorBorderCart};
-  borderWidth: 1px;
+  background-color: ${colors.colorWhite};
+  border-radius: 12px;
+  border-color: ${colors.colorBorderCart};
+  border-width: 1px;
   height: 70%;
-  justifyContent: center;
-  alignItems: center;
-  marginHorizontal: 20px;
-  marginVertical: 100px;
-`
+  justify-content: center;
+  align-items: center;
+  margin-horizontal: 20px;
+  margin-vertical: 100px;
+`;
 
-export const ContainerImage = styled.View`
-
-`
+export const ContainerImage = styled.View``;
 
 export const Title = styled.Text`
-    fontSize: 22px;
-    marginVertical: 5%;
-`
+  font-size: 22px;
+  margin-vertical: 5%;
+`;
 export const Input = styled.TextInput`
-    borderBottomColor: ${colors.colorBorder};
-    borderBottomWidth: 1px;
-    width: 90%;
-    marginVertical: 5%;
-    height: 50px;
-`
+  border-bottom-color: ${colors.colorBorder};
+  border-bottom-width: 1px;
+  width: 90%;
+  margin-vertical: 5%;
+  height: 50px;
+`;
 export const Button = styled.TouchableOpacity`
-    width: ${Dimensions.get('screen').width};
-    justifyContent: center;
-    alignItems: center;
-
-`
+  width: ${Dimensions.get("screen").width};
+  justify-content: center;
+  align-items: center;
+`;
 export const TextButton = styled.Text`
-    fontFamily: 'Roboto-BoldItalic';
-    fontSize: 50px;
-    color: ${colors.colorTextFooterCart};
-`
-export const Icon = styled.TouchableOpacity` 
-    marginVertical: 0px;
-    left: 40%;
-
-`
-export const Edit = styled.Text` 
-    fontFamily: 'Roboto-BoldItalic';
-    fontSize: 15px;
-    color: ${colors.colorTextFooterCart};
-`
+  font-family: "Roboto-BoldItalic";
+  font-size: 50px;
+  color: ${colors.colorTextFooterCart};
+`;
+export const Icon = styled.TouchableOpacity`
+  margin-vertical: 0px;
+  left: 40%;
+`;
+export const Edit = styled.Text`
+  font-family: "Roboto-BoldItalic";
+  font-size: 15px;
+  color: ${colors.colorTextFooterCart};
+`;

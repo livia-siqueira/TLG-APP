@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { BetApi, CartAPI } from "@types";
-import { controlCart } from "../Cart";
+import { BetApi, CartAPI } from "../../shared/helpers/types/API";
 
 interface AddBetInReducer {
     betsPlaced: BetApi[],

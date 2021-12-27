@@ -1,6 +1,6 @@
 import { ButtonHeader } from "@components";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { AppDispatch, RootNavigationGame, RootState } from "@types";
+import { AppDispatch, RootNavigationGame, RootState } from "../../shared/helpers/types/Game";
 import React, { useCallback, useEffect } from "react";
 import { View, FlatList, Alert} from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
@@ -9,7 +9,7 @@ import { ItemCart } from "../../components/ItemCart";
 import { colors } from "../../shared/constants/colors";
 import * as styles from "./styles";
 import { Ionicons } from "@expo/vector-icons";
-import { formatNumber } from "@helpers";
+import { formatNumber } from "../../shared/helpers";
 import { addBetInCartAsync } from "../../store/Cart/thunk";
 import { Card } from "../../components/Card";
 import { removeBetCart } from "../../store/Cart";
@@ -64,6 +64,12 @@ export const Cart = (
   useEffect(() => {
     props.navigation.setOptions({
       headerShown: true,
+      headerTitle: "New Bet",
+      headerTitleStyle: {
+        color: colors.colorTextTitle,
+        fontFamily: "Roboto-BoldItalic",
+        fontSize: 28,
+      },
       headerRight: () => (
         <HeaderButtons HeaderButtonComponent={ButtonHeader}>
           <Item

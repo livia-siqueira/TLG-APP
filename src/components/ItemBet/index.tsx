@@ -1,4 +1,4 @@
-import { formatNumber } from "@helpers";
+import { formatNumber } from "../../shared/helpers";
 import React from "react";
 import { View } from "react-native";
 import * as styles from "./styles";

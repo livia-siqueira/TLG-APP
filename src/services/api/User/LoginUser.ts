@@ -1,6 +1,6 @@
 import AsyncStorage from  '@react-native-async-storage/async-storage';
 import { api } from "..";
-import { ApiError, TokenApi } from "../../../shared/types";
+import { ApiError, TokenApi } from "../../../shared/helpers/types/Game";
 
 export const loginUserAPI = async (dataUser: {
     email: string,
